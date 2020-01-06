@@ -20,5 +20,12 @@ return [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
         ],
+        'i18n' => array(
+            'translations' => array(
+                'app' => array('class' => 'yii\i18n\PhpMessageSource', 'basePath' => '@common/messages'),
+                'cms' => array('class' => 'yii\i18n\PhpMessageSource','basePath' => '@common/messages'),
+                'frontend' => array('class' => 'yii\i18n\PhpMessageSource','basePath' => '@common/messages'),
+            )
+        )
     ],
 ];
