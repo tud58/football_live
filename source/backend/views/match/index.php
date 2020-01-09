@@ -34,8 +34,8 @@ $this->params['breadcrumb'] = [
         <div class="table-toolbar">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="btn-group">
-                        <a href="<?php echo Url::toRoute(['create']) ?>" id="sample_editable_1_new" class="btn green">
+                    <div class="btn-group mb-3">
+                        <a href="<?php echo Url::toRoute(['create']) ?>" id="sample_editable_1_new" class="btn btn-primary">
                             <?php echo Yii::t('cms', 'Add New') ?> <i class="fa fa-plus"></i>
                         </a>
                     </div>

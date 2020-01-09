@@ -62,9 +62,13 @@ class ClubController extends Controller
     {
         $model = $this->findModel($id);
         $leagues = League::findAll(['status'=>1, 'deleted'=>0]);
+        $users = ArrayHelper::map(User::find()->All(),'id','username');
+        $stadiums = ArrayHelper::map(Stadium::findAll(['status'=>1, 'deleted'=>0]),'id','name');
         return $this->render('view', [
             'model' => $model,
             'leagues' => $leagues,
+            'users' => $users,
+            'stadiums' => $stadiums,
         ]);
     }
 

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
+use common\Utility;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Club */
@@ -63,50 +64,46 @@ $this->params['breadcrumb'] = [
 			],
 			[
 				'attribute' => 'status',
-					'value' => function ($data) {
-						return $data['status'];
-					},
-			],
-			[
-				'attribute' => 'deleted',
-					'value' => function ($data) {
-						return $data['deleted'];
-					},
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data['status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+                },
 			],
 			[
 				'attribute' => 'logo',
-					'value' => function ($data) {
-						return $data['logo'];
-					},
+                'format' => ['image',['width'=>'200','height'=>'200']],
+                'value' => function ($data) {
+                    return Utility::getUrlClub($data["id"]);
+                },
 			],
 			[
 				'attribute' => 'created_by',
-					'value' => function ($data) {
-						return $data['created_by'];
+					'value' => function ($data) use ($users) {
+						return $users[$data['created_by']];
 					},
 			],
 			[
 				'attribute' => 'created_time',
 					'value' => function ($data) {
-						return $data['created_time'];
+						return Utility::format_datetime_vn($data['created_time']);
 					},
 			],
 			[
 				'attribute' => 'updated_by',
-					'value' => function ($data) {
-						return $data['updated_by'];
+					'value' => function ($data) use ($users) {
+						return $users[$data['updated_by']];
 					},
 			],
 			[
 				'attribute' => 'updated_time',
 					'value' => function ($data) {
-						return $data['updated_time'];
+						return Utility::format_datetime_vn($data['updated_time']);
 					},
 			],
 			[
 				'attribute' => 'stadium_id',
-					'value' => function ($data) {
-						return $data['stadium_id'];
+					'value' => function ($data) use ($stadiums) {
+						return $stadiums[$data['stadium_id']];
 					},
 			],
         ],
