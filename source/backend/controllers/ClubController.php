@@ -2,13 +2,20 @@
 
 namespace backend\controllers;
 
+use backend\models\League;
+use backend\models\LeagueClub;
+use backend\models\Stadium;
+use backend\models\User;
+use common\Utility;
 use Yii;
 use backend\models\Club;
 use backend\models\search\ClubSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\web\UploadedFile;
 
 /**
  * ClubController implements the CRUD actions for Club model.
@@ -35,10 +42,14 @@ class ClubController extends Controller
     {
         $searchModel = new ClubSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $users = ArrayHelper::map(User::find()->All(),'id','username');
+        $league_club = (New LeagueClub())->getLeagueClubArr();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'users' => $users,
+            'league_club' => ArrayHelper::map($league_club,'club_id','league_id'),
         ]);
     }
 
@@ -50,8 +61,10 @@ class ClubController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $leagues = League::findAll(['status'=>1, 'deleted'=>0]);
         return $this->render('view', [
             'model' => $model,
+            'leagues' => $leagues,
         ]);
     }
 
@@ -63,9 +76,39 @@ class ClubController extends Controller
     public function actionCreate()
     {
         $model = new Club();
+        $leagues = League::findAll(['status'=>1, 'deleted'=>0]);
+        $stadiums = ArrayHelper::map(Stadium::findAll(['status'=>1, 'deleted'=>0]),'id','name');
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->created_time = date('Y-m-d H:i:s');
+            $model->created_by = Yii::$app->user->id;
+            $model->updated_time = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->id;
+            $request = Yii::$app->request->post();
             if ($model->save()) {
+                $file = UploadedFile::getInstance($model, 'logo');
+                if (!empty($file)) {
+                    $file->saveAs(PATH_STORAGE . 'clubs/' . $model->id . '_real.' . $file->extension);
+                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'clubs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'clubs/' . $model->id . '.' . $file->extension, 100);
+
+                    $model->logo = $model->id . '.' . $file->extension;
+                }
+                $model->save(false);
+
+                foreach ($leagues as $l) {
+                    $league = 'league_'.$l->id;
+                    if (!empty($request[$league]) && $request[$league] == 'on') {
+                        $map = New LeagueClub();
+                        $map->club_id = $model->id;
+                        $map->league_id = $l->id;
+                        $map->created_time = date('Y-m-d H:i:s');
+                        $map->created_by = Yii::$app->user->id;
+                        $map->updated_time = date('Y-m-d H:i:s');
+                        $map->updated_by = Yii::$app->user->id;
+                        $map->save(false);
+                    }
+                }
+
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -75,6 +118,8 @@ class ClubController extends Controller
         c:
         return $this->render('create', [
             'model' => $model,
+            'leagues' => $leagues,
+            'stadiums' => $stadiums,
         ]);
     }
 
@@ -87,9 +132,43 @@ class ClubController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $leagues = League::findAll(['status'=>1, 'deleted'=>0]);
+        $stadiums = ArrayHelper::map(Stadium::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $league_club = ArrayHelper::map(LeagueClub::findAll(['club_id'=>$id, 'status'=>1,'deleted'=>0]),'league_id', 'club_id');
+
+        $img = Utility::getUrlClub($id);
+        $logo = $model->logo;
 
         if ($model->load(Yii::$app->request->post())) {
+            $request = Yii::$app->request->post();
+            $model->updated_time = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->id;
+            $model->logo = $logo;
             if ($model->save()) {
+                $file = UploadedFile::getInstance($model, 'logo');
+                if (!empty($file)) {
+                    $file->saveAs(PATH_STORAGE.'clubs/' . $model->id . '_real.' . $file->extension);
+                    Utility::resize_crop_image(200,200, PATH_STORAGE.'clubs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE.'clubs/' . $model->id . '.' . $file->extension,100);
+
+                    $model->logo = $model->id.'.'.$file->extension;
+                    $model->save(false);
+                }
+
+                $maps = LeagueClub::deleteAll(['club_id'=>$id]);
+                foreach ($leagues as $l) {
+                    $league = 'league_'.$l->id;
+                    if (!empty($request[$league]) && $request[$league] == 'on') {
+                        $map = New LeagueClub();
+                        $map->club_id = $model->id;
+                        $map->league_id = $l->id;
+                        $map->created_time = date('Y-m-d H:i:s');
+                        $map->created_by = Yii::$app->user->id;
+                        $map->updated_time = date('Y-m-d H:i:s');
+                        $map->updated_by = Yii::$app->user->id;
+                        $map->save(false);
+                    }
+                }
+
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
             Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -99,6 +178,10 @@ class ClubController extends Controller
         c:
         return $this->render('update', [
             'model' => $model,
+            'leagues' => $leagues,
+            'stadiums' => $stadiums,
+            'img' => $img,
+            'league_club' => $league_club,
         ]);
     }
 
@@ -118,7 +201,8 @@ class ClubController extends Controller
         try {
             $model = $this->findModel($obj_id);
             if ($obj_type == 'delete') {
-                $model->delete();
+                $model->delete = 1;
+                $model->save(false);
             } else {
                 throw new \Exception("{obj_type} invalid");
             }

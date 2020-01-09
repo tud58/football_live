@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use common\Utility;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\ClubSearch */
@@ -34,8 +35,8 @@ $this->params['breadcrumb'] = [
         <div class="table-toolbar">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="btn-group">
-                        <a href="<?php echo Url::toRoute(['create']) ?>" id="sample_editable_1_new" class="btn green">
+                    <div class="btn-group mb-3">
+                        <a href="<?php echo Url::toRoute(['create']) ?>" id="sample_editable_1_new" class="btn btn-primary">
                             <?php echo Yii::t('cms', 'Add New') ?> <i class="fa fa-plus"></i>
                         </a>
                     </div>
@@ -55,14 +56,6 @@ $this->params['breadcrumb'] = [
                 'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;']
             ],
 			[
-			'attribute' => 'id',
-			'value' => function ($data) { 
-				return $data['id'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-			[
 			'attribute' => 'name',
 			'value' => function ($data) { 
 				return $data['name'];
@@ -70,81 +63,64 @@ $this->params['breadcrumb'] = [
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-			[
-			'attribute' => 'description',
-			'value' => function ($data) { 
-				return $data['description'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-			[
-			'attribute' => 'status',
-			'value' => function ($data) { 
-				return $data['status'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-			[
-			'attribute' => 'deleted',
-			'value' => function ($data) { 
-				return $data['deleted'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		/*
 		[
-			'attribute' => 'logo',
-			'value' => function ($data) { 
-				return $data['logo'];
-			},
+            'attribute' => 'logo',
+            'format' => ['image',['width'=>'200','height'=>'200']],
+            'value' => function ($data) {
+                return Utility::getUrlClub($data["id"]);
+            },
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		*/
-		/*
+            [
+                'attribute' => 'leagues',
+                'value' => function ($data) use ($league_club) {
+                    return !empty($league_club[$data['id']])?$league_club[$data['id']]:'';
+                },
+                'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
+                'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+            ],
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data['status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+                },
+                'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
+                'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+            ],
 		[
 			'attribute' => 'created_by',
-			'value' => function ($data) { 
-				return $data['created_by'];
+			'value' => function ($data) use ($users) {
+				return $users[$data['created_by']];
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		*/
-		/*
 		[
 			'attribute' => 'created_time',
 			'value' => function ($data) { 
-				return $data['created_time'];
+				return Utility::format_datetime_vn($data['created_time']);
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		*/
-		/*
 		[
 			'attribute' => 'updated_by',
-			'value' => function ($data) { 
-				return $data['updated_by'];
+			'value' => function ($data) use ($users) {
+				return $users[$data['updated_by']];
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		*/
-		/*
 		[
 			'attribute' => 'updated_time',
 			'value' => function ($data) { 
-				return $data['updated_time'];
+				return Utility::format_datetime_vn($data['updated_time']);
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		*/
-		/*
 		[
 			'attribute' => 'stadium_id',
 			'value' => function ($data) { 
@@ -153,7 +129,6 @@ $this->params['breadcrumb'] = [
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		*/
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
@@ -165,14 +140,14 @@ $this->params['breadcrumb'] = [
                     'view' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
                             'title' => 'View',
-                            'class'=>'btn btn-primary btn-xs btn-app',
+                            'class'=>'btn btn-primary btn-xs btn-app mr-1',
                             'data-pjax' => '0',
                         ]);
                     },
                     'update' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                             'title' => 'Update',
-                            'class'=>'btn btn-primary btn-xs btn-app',
+                            'class'=>'btn btn-primary btn-xs btn-app mr-1',
                             'data-pjax' => '0',
                         ]);
                     },

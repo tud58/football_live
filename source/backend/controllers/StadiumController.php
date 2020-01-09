@@ -2,9 +2,11 @@
 
 namespace backend\controllers;
 
+use backend\models\User;
 use Yii;
 use backend\models\Stadium;
 use backend\models\search\StadiumSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,10 +37,12 @@ class StadiumController extends Controller
     {
         $searchModel = new StadiumSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $users = ArrayHelper::map(User::find()->All(),'id', 'username');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'users' => $users
         ]);
     }
 
@@ -50,8 +54,10 @@ class StadiumController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $users = ArrayHelper::map(User::find()->All(),'id', 'username');
         return $this->render('view', [
             'model' => $model,
+            'users' => $users
         ]);
     }
 
@@ -65,6 +71,10 @@ class StadiumController extends Controller
         $model = new Stadium();
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->created_time = date('Y-m-d H:i:s');
+            $model->created_by = Yii::$app->user->id;
+            $model->updated_time = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->id;
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -89,6 +99,8 @@ class StadiumController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->updated_time = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->id;
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -118,7 +130,8 @@ class StadiumController extends Controller
         try {
             $model = $this->findModel($obj_id);
             if ($obj_type == 'delete') {
-                $model->delete();
+                $model->delete = 1;
+                $model->save(false);
             } else {
                 throw new \Exception("{obj_type} invalid");
             }

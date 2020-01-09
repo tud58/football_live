@@ -248,9 +248,9 @@ class Utility {
         return false;
     }
 
-    public static function format_datetime_vn($time)
+    public static function format_datetime_vn($time=null)
     {
-        if (!empty($time)) {
+        if (empty($time)) {
             $return = date('d/m/Y H:i:s');
         } else {
             $return = date('d/m/Y H:i:s',strtotime($time));
@@ -259,9 +259,9 @@ class Utility {
         return $return;
     }
 
-    public static function format_time_vn($time)
+    public static function format_time_vn($time=null)
     {
-        if (!empty($time)) {
+        if (empty($time)) {
             $return = date('H:i:s');
         } else {
             $return = date('H:i:s',strtotime($time));
@@ -270,9 +270,9 @@ class Utility {
         return $return;
     }
 
-    public static function format_date_vn($time)
+    public static function format_date_vn($time=null)
     {
-        if (!empty($time)) {
+        if (empty($time)) {
             $return = date('d/m/Y');
         } else {
             $return = date('d/m/Y',strtotime($time));
