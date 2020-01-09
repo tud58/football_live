@@ -35,8 +35,8 @@ class LeagueDB extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name'], 'required'],
-            [['id', 'status', 'deleted', 'created_by', 'updated_by', 'sort'], 'integer'],
+            [['name'], 'required'],
+            [['status', 'deleted', 'created_by', 'updated_by', 'sort'], 'integer'],
             [['created_time', 'updated_time'], 'safe'],
             [['name', 'description', 'logo'], 'string', 'max' => 255]
         ];

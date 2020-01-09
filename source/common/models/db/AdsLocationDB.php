@@ -33,8 +33,8 @@ class AdsLocationDB extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name'], 'required'],
-            [['id', 'created_by', 'updated_by', 'status', 'deleted'], 'integer'],
+            [['name'], 'required'],
+            [['created_by', 'updated_by', 'status', 'deleted'], 'integer'],
             [['created_time', 'updated_time'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 500]

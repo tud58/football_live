@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
+use common\Utility;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\League */
@@ -63,44 +64,40 @@ $this->params['breadcrumb'] = [
 			],
 			[
 				'attribute' => 'status',
+                'format' => 'raw',
 					'value' => function ($data) {
-						return $data['status'];
-					},
-			],
-			[
-				'attribute' => 'deleted',
-					'value' => function ($data) {
-						return $data['deleted'];
+                        return $data['status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
 					},
 			],
 			[
 				'attribute' => 'logo',
+                'format' => ['image',['width'=>'200','height'=>'200']],
 					'value' => function ($data) {
-						return $data['logo'];
+                        return Utility::getUrlLeague($data["id"]);
 					},
 			],
 			[
 				'attribute' => 'created_by',
-					'value' => function ($data) {
-						return $data['created_by'];
+					'value' => function ($data) use ($users) {
+						return $users[$data['created_by']];
 					},
 			],
 			[
 				'attribute' => 'created_time',
 					'value' => function ($data) {
-						return $data['created_time'];
+						return Utility::format_datetime_vn($data['created_time']);
 					},
 			],
 			[
 				'attribute' => 'updated_by',
-					'value' => function ($data) {
-						return $data['updated_by'];
+					'value' => function ($data) use ($users) {
+						return $users[$data['updated_by']];
 					},
 			],
 			[
 				'attribute' => 'updated_time',
 					'value' => function ($data) {
-						return $data['updated_time'];
+						return Utility::format_datetime_vn($data['updated_time']);
 					},
 			],
 			[

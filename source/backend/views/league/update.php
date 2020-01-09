@@ -34,6 +34,7 @@ $this->params['breadcrumb'] = [
 <div class="league-update">
     <?= $this->render('_form', [
         'model' => $model,
+        'img' => $img,
     ]) ?>
 
 </div>

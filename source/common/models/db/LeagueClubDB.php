@@ -33,8 +33,8 @@ class LeagueClubDB extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'club_id', 'league_id'], 'required'],
-            [['id', 'club_id', 'league_id', 'status', 'deleted', 'created_by', 'updated_by'], 'integer'],
+            [['club_id', 'league_id'], 'required'],
+            [['club_id', 'league_id', 'status', 'deleted', 'created_by', 'updated_by'], 'integer'],
             [['created_time', 'updated_time'], 'safe']
         ];
     }

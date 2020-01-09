@@ -36,8 +36,8 @@ class AdsDB extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'ads_location_id', 'url', 'img'], 'required'],
-            [['id', 'ads_location_id', 'created_by', 'updated_by', 'status', 'deleted'], 'integer'],
+            [['ads_location_id', 'url', 'img'], 'required'],
+            [['ads_location_id', 'created_by', 'updated_by', 'status', 'deleted'], 'integer'],
             [['created_time', 'updated_time'], 'safe'],
             [['title', 'description'], 'string', 'max' => 255],
             [['url', 'img'], 'string', 'max' => 500]

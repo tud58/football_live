@@ -51,6 +51,8 @@ class LeagueSearch extends League
             return $dataProvider;
         }
 
+        $query->andWhere(['deleted'=>0]);
+
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
@@ -65,6 +67,8 @@ class LeagueSearch extends League
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'logo', $this->logo]);
+
+        $query->orderBy(['sort'=>SORT_DESC,'created_time'=>SORT_DESC]);
 
         return $dataProvider;
     }

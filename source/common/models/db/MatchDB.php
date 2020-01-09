@@ -41,8 +41,8 @@ class MatchDB extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'league_id', 'club1_id', 'club2_id', 'start_time'], 'required'],
-            [['id', 'league_id', 'club1_id', 'club2_id', 'stadium_id', 'status', 'deleted', 'created_by', 'updated_by', 'sort', 'url_status'], 'integer'],
+            [['league_id', 'club1_id', 'club2_id', 'start_time'], 'required'],
+            [['league_id', 'club1_id', 'club2_id', 'stadium_id', 'status', 'deleted', 'created_by', 'updated_by', 'sort', 'url_status'], 'integer'],
             [['start_time', 'created_time', 'updated_time'], 'safe'],
             [['title', 'url'], 'string', 'max' => 500],
             [['thumb'], 'string', 'max' => 255]

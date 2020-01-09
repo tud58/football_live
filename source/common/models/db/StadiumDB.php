@@ -32,8 +32,7 @@ class StadiumDB extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id', 'created_by', 'updated_by'], 'integer'],
+            [['created_by', 'updated_by'], 'integer'],
             [['created_time', 'updated_time'], 'safe'],
             [['name', 'status', 'deleted'], 'string', 'max' => 255]
         ];

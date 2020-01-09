@@ -2,13 +2,17 @@
 
 namespace backend\controllers;
 
+use backend\models\User;
+use common\Utility;
 use Yii;
 use backend\models\League;
 use backend\models\search\LeagueSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\web\UploadedFile;
 
 /**
  * LeagueController implements the CRUD actions for League model.
@@ -35,10 +39,12 @@ class LeagueController extends Controller
     {
         $searchModel = new LeagueSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $users = ArrayHelper::map(User::find()->All(),'id', 'username');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'users' => $users,
         ]);
     }
 
@@ -50,8 +56,10 @@ class LeagueController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $users = ArrayHelper::map(User::find()->All(),'id', 'username');
         return $this->render('view', [
             'model' => $model,
+            'users' => $users,
         ]);
     }
 
@@ -65,7 +73,20 @@ class LeagueController extends Controller
         $model = new League();
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->created_time = date('Y-m-d H:i:s');
+            $model->created_by = Yii::$app->user->id;
+            $model->updated_time = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->id;
             if ($model->save()) {
+                $file = UploadedFile::getInstance($model, 'logo');
+                if (!empty($file)) {
+                    $file->saveAs(PATH_STORAGE . 'leagues/' . $model->id . '_real.' . $file->extension);
+                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'leagues/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'leagues/' . $model->id . '.' . $file->extension, 100);
+
+                    $model->logo = $model->id . '.' . $file->extension;
+                }
+                $model->save(false);
+
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -87,18 +108,33 @@ class LeagueController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $img = Utility::getUrlLeague($id);
+        $logo = $model->logo;
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->updated_time = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->id;
+            $model->logo = $logo;
             if ($model->save()) {
+                $file = UploadedFile::getInstance($model, 'logo');
+                if (!empty($file)) {
+                    $file->saveAs(PATH_STORAGE.'leagues/' . $model->id . '_real.' . $file->extension);
+                    Utility::resize_crop_image(200,200, PATH_STORAGE.'leagues/' . $model->id . '_real.' . $file->extension, PATH_STORAGE.'leagues/' . $model->id . '.' . $file->extension,100);
+
+                    $model->logo = $model->id.'.'.$file->extension;
+                    $model->save(false);
+                }
+
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
-            Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+                Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
                 goto c;
             }
         }
         c:
         return $this->render('update', [
             'model' => $model,
+            'img' => $img,
         ]);
     }
 
@@ -118,7 +154,8 @@ class LeagueController extends Controller
         try {
             $model = $this->findModel($obj_id);
             if ($obj_type == 'delete') {
-                $model->delete();
+                $model->deleted = 1;
+                $model->save(false);
             } else {
                 throw new \Exception("{obj_type} invalid");
             }
