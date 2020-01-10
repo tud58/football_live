@@ -472,4 +472,6 @@ return array(
 	'Ads Location ID' => 'Ads Location ID', 
 	'Img' => 'Img', 
 	'Url Status' => 'Url Status', 
+	'Slug' => 'Slug', 
+	'Hot' => 'Hot', 
 );

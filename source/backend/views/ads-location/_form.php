@@ -32,15 +32,13 @@ use kartik\form\ActiveForm;
                 </div>
             <?php } ?>
 
-                <?= $form->field($model, 'id')->textInput()->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('id'))) ?>
+            <?= $form->field($model, 'name')->textInput(['maxlength' => 255])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('name'))) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 255])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('name'))) ?>
+            <?= $form->field($model, 'description')->textInput(['maxlength' => 500])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('description'))) ?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => 500])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('description'))) ?>
-
-    <?= $form->field($model, 'status', [
-                        'template' => '<div>{label}<div class="col-sm-9 checkbox_element">{input}</div></div>'
-                    ])->checkbox(['label' => false])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('status'))) ?>
+            <?= $form->field($model, 'status', [
+                                'template' => '<div>{label}<div class="col-sm-9 checkbox_element">{input}</div></div>'
+                            ])->checkbox([])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('status'))) ?>
 
             <div class="form-group" style="text-align: center">
                 <?= Html::submitButton('<i class="fa fa-save"></i> ' . 'Save', ['class' => 'btn btn-primary']) ?>

@@ -4,9 +4,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Match */
+/* @var $model backend\models\AdsType */
 
-$this->title = 'Match';
+$this->title = 'Ads Type';
 
 $this->params['pageTitleConfig'] = [
     'main_text' => $this->title,
@@ -19,7 +19,7 @@ $this->params['breadcrumb'] = [
         'active' => false
     ],
     [
-        'label' => 'Match',
+        'label' => 'Ads Type',
         'link' => Url::toRoute(['index']),
         'active' => false
     ],
@@ -31,13 +31,9 @@ $this->params['breadcrumb'] = [
 ];
 
 ?>
-<div class="match-update">
+<div class="ads-type-update">
     <?= $this->render('_form', [
         'model' => $model,
-        'leagues' => $leagues,
-        'clubs' => $clubs,
-        'stadiums' => $stadiums,
-        'img' => $img,
     ]) ?>
 
 </div>

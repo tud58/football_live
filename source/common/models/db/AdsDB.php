@@ -19,6 +19,8 @@ use Yii;
  * @property string $updated_time
  * @property integer $status
  * @property integer $deleted
+ * @property integer $sort
+ * @property integer $type
  */
 class AdsDB extends \yii\db\ActiveRecord
 {
@@ -37,7 +39,7 @@ class AdsDB extends \yii\db\ActiveRecord
     {
         return [
             [['ads_location_id', 'url', 'img'], 'required'],
-            [['ads_location_id', 'created_by', 'updated_by', 'status', 'deleted'], 'integer'],
+            [['ads_location_id', 'created_by', 'updated_by', 'status', 'deleted', 'sort', 'type'], 'integer'],
             [['created_time', 'updated_time'], 'safe'],
             [['title', 'description'], 'string', 'max' => 255],
             [['url', 'img'], 'string', 'max' => 500]
@@ -62,6 +64,8 @@ class AdsDB extends \yii\db\ActiveRecord
             'updated_time' => 'Updated Time',
             'status' => 'Status',
             'deleted' => 'Deleted',
+            'sort' => 'Sort',
+            'type' => 'Type',
         ];
     }
 }

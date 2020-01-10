@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\User;
 use backend\models\search\UserSearch;
+use yii\caching\TagDependency;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,8 +64,15 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+        $request = Yii::$app->request->post("User");
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->password = Yii::$app->security->generatePasswordHash($request["password"]);
+            $model->type = 1;
+            $model->created_by = Yii::$app->user->id;
+            $model->created_time = date('Y-m-d H:i:s');
+            $model->update_by = Yii::$app->user->id;
+            $model->updated_time = date('Y-m-d H:i:s');
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -89,10 +97,12 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->update_by = Yii::$app->user->id;
+            $model->updated_time = date('Y-m-d H:i:s');
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
-            Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+                Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
                 goto c;
             }
         }

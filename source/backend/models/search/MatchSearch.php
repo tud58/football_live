@@ -18,8 +18,8 @@ class MatchSearch extends Match
     public function rules()
     {
         return [
-            [['id', 'league_id', 'club1_id', 'club2_id', 'stadium_id', 'status', 'deleted', 'created_by', 'updated_by', 'sort'], 'integer'],
-            [['title', 'start_time', 'url', 'thumb', 'created_time', 'updated_time'], 'safe'],
+            [['id', 'league_id', 'club1_id', 'club2_id', 'stadium_id', 'status', 'deleted', 'created_by', 'updated_by', 'sort', 'url_status', 'hot'], 'integer'],
+            [['title', 'start_time', 'url', 'thumb', 'created_time', 'updated_time', 'slug'], 'safe'],
         ];
     }
 
@@ -65,11 +65,16 @@ class MatchSearch extends Match
             'updated_by' => $this->updated_by,
             'updated_time' => $this->updated_time,
             'sort' => $this->sort,
+            'url_status' => $this->url_status,
+            'hot' => $this->hot,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'thumb', $this->thumb]);
+            ->andFilterWhere(['like', 'thumb', $this->thumb])
+            ->andFilterWhere(['like', 'slug', $this->slug]);
+
+        $query->orderBy(['hot'=>SORT_DESC,'sort'=>SORT_DESC,'start_time'=>SORT_DESC]);
 
         return $dataProvider;
     }

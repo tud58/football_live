@@ -18,6 +18,7 @@ use Yii;
  * @property integer $updated_by
  * @property string $updated_time
  * @property integer $sort
+ * @property string $slug
  */
 class LeagueDB extends \yii\db\ActiveRecord
 {
@@ -38,7 +39,7 @@ class LeagueDB extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['status', 'deleted', 'created_by', 'updated_by', 'sort'], 'integer'],
             [['created_time', 'updated_time'], 'safe'],
-            [['name', 'description', 'logo'], 'string', 'max' => 255]
+            [['name', 'description', 'logo', 'slug'], 'string', 'max' => 255]
         ];
     }
 
@@ -59,6 +60,7 @@ class LeagueDB extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'updated_time' => 'Updated Time',
             'sort' => 'Sort',
+            'slug' => 'Slug',
         ];
     }
 }

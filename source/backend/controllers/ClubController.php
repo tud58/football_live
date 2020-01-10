@@ -61,12 +61,12 @@ class ClubController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $leagues = League::findAll(['status'=>1, 'deleted'=>0]);
+        $leagues = ArrayHelper::map((New LeagueClub())->getLeagueClubArr($id),'club_id','league_id');
         $users = ArrayHelper::map(User::find()->All(),'id','username');
         $stadiums = ArrayHelper::map(Stadium::findAll(['status'=>1, 'deleted'=>0]),'id','name');
         return $this->render('view', [
             'model' => $model,
-            'leagues' => $leagues,
+            'leagues' => !empty($leagues[$id])?$leagues[$id]:'',
             'users' => $users,
             'stadiums' => $stadiums,
         ]);
@@ -84,6 +84,8 @@ class ClubController extends Controller
         $stadiums = ArrayHelper::map(Stadium::findAll(['status'=>1, 'deleted'=>0]),'id','name');
 
         if ($model->load(Yii::$app->request->post())) {
+            $slug = Utility::convert_vi_to_en(Yii::$app->request->post('Club')['name']);
+            $model->slug = $slug;
             $model->created_time = date('Y-m-d H:i:s');
             $model->created_by = Yii::$app->user->id;
             $model->updated_time = date('Y-m-d H:i:s');
@@ -145,6 +147,8 @@ class ClubController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $request = Yii::$app->request->post();
+            $slug = Utility::convert_vi_to_en(Yii::$app->request->post('Club')['name']);
+            $model->slug = $slug;
             $model->updated_time = date('Y-m-d H:i:s');
             $model->updated_by = Yii::$app->user->id;
             $model->logo = $logo;
@@ -205,7 +209,7 @@ class ClubController extends Controller
         try {
             $model = $this->findModel($obj_id);
             if ($obj_type == 'delete') {
-                $model->delete = 1;
+                $model->deleted = 1;
                 $model->save(false);
             } else {
                 throw new \Exception("{obj_type} invalid");

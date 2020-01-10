@@ -15,6 +15,7 @@ use Yii;
  * @property string $created_time
  * @property integer $updated_by
  * @property string $updated_time
+ * @property string $slug
  */
 class StadiumDB extends \yii\db\ActiveRecord
 {
@@ -34,7 +35,7 @@ class StadiumDB extends \yii\db\ActiveRecord
         return [
             [['created_by', 'updated_by'], 'integer'],
             [['created_time', 'updated_time'], 'safe'],
-            [['name', 'status', 'deleted'], 'string', 'max' => 255]
+            [['name', 'status', 'deleted', 'slug'], 'string', 'max' => 255]
         ];
     }
 
@@ -52,6 +53,7 @@ class StadiumDB extends \yii\db\ActiveRecord
             'created_time' => 'Created Time',
             'updated_by' => 'Updated By',
             'updated_time' => 'Updated Time',
+            'slug' => 'Slug',
         ];
     }
 }

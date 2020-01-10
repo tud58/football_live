@@ -2,21 +2,18 @@
 
 namespace backend\controllers;
 
-use backend\models\User;
-use common\Utility;
 use Yii;
-use backend\models\Stadium;
-use backend\models\search\StadiumSearch;
-use yii\helpers\ArrayHelper;
+use backend\models\AdsType;
+use backend\models\search\AdsTypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 
 /**
- * StadiumController implements the CRUD actions for Stadium model.
+ * AdsTypeController implements the CRUD actions for AdsType model.
  */
-class StadiumController extends Controller
+class AdsTypeController extends Controller
 {
     public function behaviors()
     {
@@ -31,53 +28,43 @@ class StadiumController extends Controller
     }
 
     /**
-     * Lists all Stadium models.
+     * Lists all AdsType models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new StadiumSearch();
+        $searchModel = new AdsTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $users = ArrayHelper::map(User::find()->All(),'id', 'username');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'users' => $users
         ]);
     }
 
     /**
-     * Displays a single Stadium model.
+     * Displays a single AdsType model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $users = ArrayHelper::map(User::find()->All(),'id', 'username');
         return $this->render('view', [
             'model' => $model,
-            'users' => $users
         ]);
     }
 
     /**
-     * Creates a new Stadium model.
+     * Creates a new AdsType model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Stadium();
+        $model = new AdsType();
 
         if ($model->load(Yii::$app->request->post())) {
-            $slug = Utility::convert_vi_to_en(Yii::$app->request->post('Stadium')['name']);
-            $model->slug = $slug;
-            $model->created_time = date('Y-m-d H:i:s');
-            $model->created_by = Yii::$app->user->id;
-            $model->updated_time = date('Y-m-d H:i:s');
-            $model->updated_by = Yii::$app->user->id;
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -92,7 +79,7 @@ class StadiumController extends Controller
     }
 
     /**
-     * Updates an existing Stadium model.
+     * Updates an existing AdsType model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -102,10 +89,6 @@ class StadiumController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $slug = Utility::convert_vi_to_en(Yii::$app->request->post('Stadium')['name']);
-            $model->slug = $slug;
-            $model->updated_time = date('Y-m-d H:i:s');
-            $model->updated_by = Yii::$app->user->id;
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
@@ -135,8 +118,7 @@ class StadiumController extends Controller
         try {
             $model = $this->findModel($obj_id);
             if ($obj_type == 'delete') {
-                $model->deleted = 1;
-                $model->save(false);
+                $model->delete();
             } else {
                 throw new \Exception("{obj_type} invalid");
             }
@@ -152,15 +134,15 @@ class StadiumController extends Controller
     }
 
     /**
-     * Finds the Stadium model based on its primary key value.
+     * Finds the AdsType model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Stadium the loaded model
+     * @return AdsType the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Stadium::findOne($id)) !== null) {
+        if (($model = AdsType::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

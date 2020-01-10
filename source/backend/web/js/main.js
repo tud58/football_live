@@ -83,3 +83,25 @@ function showImg(event) {
     var output = document.getElementById('show_img');
     output.src = URL.createObjectURL(event.target.files[0]);
 }
+
+function loadClubByLeage() {
+    var league_id = $("#match-league_id option:selected").val();
+    if (league_id) {
+        $.ajax({
+            method: 'POST',
+            data: {
+                'league_id' : league_id
+            },
+            url: '/match/load-club-by-league.io',
+            success: function (data) {
+                var data1 = '<option value="">Chọn đội bóng sân nhà</option>'+data;
+                var data2 = '<option value="">Chọn đội bóng sân khách</option>'+data;
+                $("#match-club1_id").html(data1);
+                $("#match-club2_id").html(data2);
+            },
+            error: function () {
+                toast('error', 'Thông báo', LANG.system_error);
+            }
+        });
+    }
+}

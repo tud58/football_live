@@ -47,6 +47,12 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'sort') ?>
 
+    <?php // echo $form->field($model, 'url_status') ?>
+
+    <?php // echo $form->field($model, 'slug') ?>
+
+    <?php // echo $form->field($model, 'hot') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

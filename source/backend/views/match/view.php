@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
+use common\Utility;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Match */
@@ -57,32 +58,32 @@ $this->params['breadcrumb'] = [
 			],
 			[
 				'attribute' => 'league_id',
-					'value' => function ($data) {
-						return $data['league_id'];
+					'value' => function ($data) use ($leagues) {
+						return !empty($leagues[$data['league_id']])?$leagues[$data['league_id']]:'';
 					},
 			],
 			[
 				'attribute' => 'club1_id',
-					'value' => function ($data) {
-						return $data['club1_id'];
+					'value' => function ($data) use ($clubs) {
+						return !empty($clubs[$data['club1_id']])?$clubs[$data['club1_id']]:'';
 					},
 			],
 			[
 				'attribute' => 'club2_id',
-					'value' => function ($data) {
-						return $data['club2_id'];
+					'value' => function ($data) use ($clubs) {
+                        return !empty($clubs[$data['club2_id']])?$clubs[$data['club2_id']]:'';
 					},
 			],
 			[
 				'attribute' => 'start_time',
 					'value' => function ($data) {
-						return $data['start_time'];
+						return Utility::format_datetime_vn($data['start_time']);
 					},
 			],
 			[
 				'attribute' => 'stadium_id',
-					'value' => function ($data) {
-						return $data['stadium_id'];
+					'value' => function ($data) use ($stadiums) {
+						return !empty($stadiums[$data['stadium_id']])?$stadiums[$data['stadium_id']]:'';
 					},
 			],
 			[
@@ -92,45 +93,41 @@ $this->params['breadcrumb'] = [
 					},
 			],
 			[
-				'attribute' => 'status',
-					'value' => function ($data) {
-						return $data['status'];
-					},
-			],
-			[
-				'attribute' => 'deleted',
-					'value' => function ($data) {
-						return $data['deleted'];
-					},
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data['status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+                },
 			],
 			[
 				'attribute' => 'thumb',
-					'value' => function ($data) {
-						return $data['thumb'];
-					},
+                'format' => ['image',['width'=>'350','height'=>'200']],
+                'value' => function ($data) {
+                    return Utility::getUrlMatch($data["thumb"]);
+                },
 			],
 			[
 				'attribute' => 'created_by',
-					'value' => function ($data) {
-						return $data['created_by'];
+					'value' => function ($data) use ($users) {
+						return !empty($users[$data['created_by']])?$users[$data['created_by']]:'';
 					},
 			],
 			[
 				'attribute' => 'created_time',
 					'value' => function ($data) {
-						return $data['created_time'];
+						return Utility::format_datetime_vn($data['created_time']);
 					},
 			],
 			[
 				'attribute' => 'updated_by',
-					'value' => function ($data) {
-						return $data['updated_by'];
+					'value' => function ($data) use ($users) {
+						return !empty($users[$data['updated_by']])?$users[$data['updated_by']]:'';
 					},
 			],
 			[
 				'attribute' => 'updated_time',
 					'value' => function ($data) {
-						return $data['updated_time'];
+						return Utility::format_datetime_vn($data['updated_time']);
 					},
 			],
 			[
@@ -138,6 +135,20 @@ $this->params['breadcrumb'] = [
 					'value' => function ($data) {
 						return $data['sort'];
 					},
+			],
+			[
+				'attribute' => 'url_status',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data['url_status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+                },
+			],
+			[
+				'attribute' => 'hot',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data['hot']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+                },
 			],
         ],
     ]) ?>

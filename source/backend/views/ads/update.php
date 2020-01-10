@@ -34,6 +34,9 @@ $this->params['breadcrumb'] = [
 <div class="ads-update">
     <?= $this->render('_form', [
         'model' => $model,
+        'ads_type' => $ads_type,
+        'ads_location' => $ads_location,
+        'img' => $img,
     ]) ?>
 
 </div>

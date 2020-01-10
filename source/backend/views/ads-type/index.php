@@ -6,9 +6,9 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\search\AdsSearch */
+/* @var $searchModel backend\models\search\AdsTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = $this->params['title'] = 'Ads';
+$this->title = $this->params['title'] = 'Ads Type';
 
 $this->params['pageTitleConfig'] = [
     'main_text' => $this->title,
@@ -54,116 +54,22 @@ $this->params['breadcrumb'] = [
                 'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
                 'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;']
             ],
-			/*[
+			[
 			'attribute' => 'id',
 			'value' => function ($data) { 
 				return $data['id'];
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],*/
-			[
-			'attribute' => 'title',
-			'value' => function ($data) { 
-				return $data['title'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
 			[
-			'attribute' => 'description',
+			'attribute' => 'name',
 			'value' => function ($data) { 
-				return $data['description'];
+				return $data['name'];
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-			[
-			'attribute' => 'ads_location_id',
-			'value' => function ($data) { 
-				return $data['ads_location_id'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-			[
-			'attribute' => 'url',
-			'value' => function ($data) { 
-				return $data['url'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-
-		[
-			'attribute' => 'img',
-			'value' => function ($data) { 
-				return $data['img'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-
-		/*
-		[
-			'attribute' => 'created_by',
-			'value' => function ($data) { 
-				return $data['created_by'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-		/*
-		[
-			'attribute' => 'created_time',
-			'value' => function ($data) { 
-				return $data['created_time'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-		/*
-		[
-			'attribute' => 'updated_by',
-			'value' => function ($data) { 
-				return $data['updated_by'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-		/*
-		[
-			'attribute' => 'updated_time',
-			'value' => function ($data) { 
-				return $data['updated_time'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-
-		[
-			'attribute' => 'status',
-			'value' => function ($data) { 
-				return $data['status'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-
-		/*
-		[
-			'attribute' => 'deleted',
-			'value' => function ($data) { 
-				return $data['deleted'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',

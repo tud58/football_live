@@ -24,6 +24,8 @@ use Yii;
  * @property string $updated_time
  * @property integer $sort
  * @property integer $url_status
+ * @property string $slug
+ * @property integer $hot
  */
 class MatchDB extends \yii\db\ActiveRecord
 {
@@ -42,9 +44,9 @@ class MatchDB extends \yii\db\ActiveRecord
     {
         return [
             [['league_id', 'club1_id', 'club2_id', 'start_time'], 'required'],
-            [['league_id', 'club1_id', 'club2_id', 'stadium_id', 'status', 'deleted', 'created_by', 'updated_by', 'sort', 'url_status'], 'integer'],
+            [['league_id', 'club1_id', 'club2_id', 'stadium_id', 'status', 'deleted', 'created_by', 'updated_by', 'sort', 'url_status', 'hot'], 'integer'],
             [['start_time', 'created_time', 'updated_time'], 'safe'],
-            [['title', 'url'], 'string', 'max' => 500],
+            [['title', 'url', 'slug'], 'string', 'max' => 500],
             [['thumb'], 'string', 'max' => 255]
         ];
     }
@@ -72,6 +74,8 @@ class MatchDB extends \yii\db\ActiveRecord
             'updated_time' => 'Updated Time',
             'sort' => 'Sort',
             'url_status' => 'Url Status',
+            'slug' => 'Slug',
+            'hot' => 'Hot',
         ];
     }
 }

@@ -56,12 +56,6 @@ $this->params['breadcrumb'] = [
 					},
 			],
 			[
-				'attribute' => 'password',
-					'value' => function ($data) {
-						return $data['password'];
-					},
-			],
-			[
 				'attribute' => 'fullname',
 					'value' => function ($data) {
 						return $data['fullname'];

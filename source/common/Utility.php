@@ -281,4 +281,15 @@ class Utility {
         return $return;
     }
 
+    public static function format_datetime_local($time=null)
+    {
+        if (empty($time)) {
+            $return = date('Y-m-d').'T'.date('H:i:s');
+        } else {
+            $return = date('Y-m-d',strtotime($time)).'T'.date('H:i:s',strtotime($time));
+        }
+
+        return $return;
+    }
+
 }

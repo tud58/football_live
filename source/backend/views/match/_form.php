@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
+use common\Utility;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Match */
@@ -32,26 +33,44 @@ use kartik\form\ActiveForm;
                 </div>
             <?php } ?>
 
-
             <?= $form->field($model, 'title')->textInput(['maxlength' => 500])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('title'))) ?>
 
-            <?= $form->field($model, 'league_id')->textInput()->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('league_id'))) ?>
+            <?= $form->field($model, 'league_id')->dropDownList($leagues,['prompt'=>'Chọn giải đấu', 'onchange'=>'loadClubByLeage()'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('league_id'))) ?>
 
-            <?= $form->field($model, 'club1_id')->textInput()->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('club1_id'))) ?>
+            <?= $form->field($model, 'club1_id')->dropDownList($clubs,['prompt'=>'Chọn đội bóng chủ nhà'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('club1_id'))) ?>
 
-            <?= $form->field($model, 'club2_id')->textInput()->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('club2_id'))) ?>
+            <?= $form->field($model, 'club2_id')->dropDownList($clubs,['prompt'=>'Chọn đội bóng sân khách'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('club2_id'))) ?>
 
-            <?= $form->field($model, 'start_time')->textInput()->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('start_time'))) ?>
+            <?= $form->field($model, 'start_time')->Input('datetime-local',['value'=>!empty($model->start_time)?Utility::format_datetime_local($model->start_time):''])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('start_time'))) ?>
 
-            <?= $form->field($model, 'stadium_id')->textInput()->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('stadium_id'))) ?>
+            <?= $form->field($model, 'stadium_id')->dropDownList($stadiums,['prompt'=>'Chọn sân bóng'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('stadium_id'))) ?>
 
             <?= $form->field($model, 'url')->textInput(['maxlength' => 500])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('url'))) ?>
 
             <?= $form->field($model, 'status', [
                                 'template' => '<div>{label}<div class="col-sm-9 checkbox_element">{input}</div></div>'
-                            ])->checkbox([])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('status'))) ?>
+                            ])->checkbox(['label' => 'Trạng thái trận đấu'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('status'))) ?>
 
-            <?= $form->field($model, 'thumb')->textInput(['maxlength' => 255])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('thumb'))) ?>
+            <?= $form->field($model, 'url_status', [
+                'template' => '<div>{label}<div class="col-sm-9 checkbox_element">{input}</div></div>'
+            ])->checkbox(['label' => 'Trạng thái link'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('url_status'))) ?>
+
+            <?= $form->field($model, 'hot', [
+                'template' => '<div>{label}<div class="col-sm-9 checkbox_element">{input}</div></div>'
+            ])->checkbox(['label' => 'Trận đấu nổi bật'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('hot'))) ?>
+
+            <?= $form->field($model, 'thumb',['template' => '<div>{label}<div class="col-sm-9 checkbox_element pl-0">{input}</div></div>'])->fileInput(['accept'=>"image/png,image/jpg,image/jpeg", 'onchange'=>"showImg(event)",'class' => 'ml-3'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('thumb'))) ?>
+
+            <div class="form-group">
+                <label class="control-label has-star col-sm-3"></label>
+                <div class="col-sm-9 checkbox_element pl-0 l-3">
+                    <?php if (!empty($img)) { ?>
+                        <img id="show_img" src="<?=$img?>" height="200" width="350">
+                    <?php } else { ?>
+                        <img id="show_img" src="https://via.placeholder.com/200x350.png" height="200" width="350">
+                    <?php } ?>
+                </div>
+            </div>
 
             <?= $form->field($model, 'sort')->textInput()->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('sort'))) ?>
 

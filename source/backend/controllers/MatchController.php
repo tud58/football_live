@@ -2,13 +2,21 @@
 
 namespace backend\controllers;
 
+use backend\models\Club;
+use backend\models\League;
+use backend\models\LeagueClub;
+use backend\models\Stadium;
+use backend\models\User;
+use common\Utility;
 use Yii;
 use backend\models\Match;
 use backend\models\search\MatchSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\web\UploadedFile;
 
 /**
  * MatchController implements the CRUD actions for Match model.
@@ -35,10 +43,18 @@ class MatchController extends Controller
     {
         $searchModel = new MatchSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $leagues = ArrayHelper::map(League::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $clubs = ArrayHelper::map(Club::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $stadiums = ArrayHelper::map(Stadium::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $users = ArrayHelper::map(User::find()->All(),'id','username');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'leagues' => $leagues,
+            'clubs' => $clubs,
+            'stadiums' => $stadiums,
+            'users' => $users,
         ]);
     }
 
@@ -50,8 +66,16 @@ class MatchController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $leagues = ArrayHelper::map(League::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $clubs = ArrayHelper::map(Club::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $stadiums = ArrayHelper::map(Stadium::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $users = ArrayHelper::map(User::find()->All(),'id','username');
         return $this->render('view', [
             'model' => $model,
+            'leagues' => $leagues,
+            'clubs' => $clubs,
+            'stadiums' => $stadiums,
+            'users' => $users,
         ]);
     }
 
@@ -63,9 +87,29 @@ class MatchController extends Controller
     public function actionCreate()
     {
         $model = new Match();
+        $leagues = ArrayHelper::map(League::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $clubs = ArrayHelper::map(Club::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $stadiums = ArrayHelper::map(Stadium::findAll(['status'=>1, 'deleted'=>0]),'id','name');
 
         if ($model->load(Yii::$app->request->post())) {
+            $request = Yii::$app->request->post('Match');
+            $title = !empty($request['title'])?$request['title']:$clubs[$request['club1_id']].' vs '.$clubs[$request['club2_id']];
+            $slug = Utility::convert_vi_to_en($title);
+            $model->title = $title;
+            $model->slug = $slug;
+            $model->created_time = date('Y-m-d H:i:s');
+            $model->created_by = Yii::$app->user->id;
+            $model->updated_time = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->id;
             if ($model->save()) {
+                $file = UploadedFile::getInstance($model, 'thumb');
+                if (!empty($file)) {
+                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension);
+                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'matchs/' . $model->id . '.' . $file->extension, 100);
+
+                    $model->thumb = $model->id . '.' . $file->extension;
+                }
+                $model->save(false);
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -75,7 +119,21 @@ class MatchController extends Controller
         c:
         return $this->render('create', [
             'model' => $model,
+            'leagues' => $leagues,
+            'clubs' => $clubs,
+            'stadiums' => $stadiums,
         ]);
+    }
+
+    public function actionLoadClubByLeague()
+    {
+        $request = Yii::$app->request->post();
+        if (!empty($request['league_id'])) {
+            $clubs = (New LeagueClub())->getClubByLeague($request['league_id']);
+            return $this->renderAjax('club_by_league', [
+                'clubs' => $clubs,
+            ]);
+        }
     }
 
     /**
@@ -87,9 +145,30 @@ class MatchController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $leagues = ArrayHelper::map(League::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $clubs = ArrayHelper::map(Club::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $stadiums = ArrayHelper::map(Stadium::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $img = Utility::getUrlMatch($id);
+        $thumb = $model->thumb;
 
         if ($model->load(Yii::$app->request->post())) {
+            $request = Yii::$app->request->post('Match');
+            $title = !empty($request['title'])?$request['title']:$clubs[$request['club1_id']].' vs '.$clubs[$request['club2_id']];
+            $slug = Utility::convert_vi_to_en($title);
+            $model->title = $title;
+            $model->slug = $slug;
+            $model->updated_time = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->id;
+            $model->thumb = $thumb;
             if ($model->save()) {
+                $file = UploadedFile::getInstance($model, 'thumb');
+                if (!empty($file)) {
+                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension);
+                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'matchs/' . $model->id . '.' . $file->extension, 100);
+
+                    $model->thumb = $model->id . '.' . $file->extension;
+                }
+                $model->save(false);
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
             Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -99,6 +178,10 @@ class MatchController extends Controller
         c:
         return $this->render('update', [
             'model' => $model,
+            'leagues' => $leagues,
+            'clubs' => $clubs,
+            'stadiums' => $stadiums,
+            'img' => $img,
         ]);
     }
 
@@ -118,7 +201,8 @@ class MatchController extends Controller
         try {
             $model = $this->findModel($obj_id);
             if ($obj_type == 'delete') {
-                $model->delete();
+                $model->deleted = 1;
+                $model->save(false);
             } else {
                 throw new \Exception("{obj_type} invalid");
             }

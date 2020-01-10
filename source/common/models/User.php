@@ -8,19 +8,21 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * This is the model class for table "users".
  *
- * @property integer $id
+ * @property int $id
  * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $verification_token
- * @property string $email
- * @property string $auth_key
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property string $password
+ * @property string|null $fullname
+ * @property string|null $phone
+ * @property string|null $email
+ * @property int|null $status
+ * @property int|null $deleted
+ * @property int|null $type
+ * @property int|null $created_by
+ * @property string|null $created_time
+ * @property int|null $update_by
+ * @property string|null $updated_time
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -53,8 +55,32 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            [['username', 'password'], 'required'],
+            [['status', 'deleted', 'type', 'created_by', 'update_by'], 'integer'],
+            [['created_time', 'updated_time'], 'safe'],
+            [['username', 'password', 'fullname', 'phone', 'email'], 'string', 'max' => 255],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Username',
+            'password' => 'Password',
+            'fullname' => 'Fullname',
+            'phone' => 'Phone',
+            'email' => 'Email',
+            'status' => 'Status',
+            'deleted' => 'Deleted',
+            'type' => 'Type',
+            'created_by' => 'Created By',
+            'created_time' => 'Created Time',
+            'update_by' => 'Update By',
+            'updated_time' => 'Updated Time',
         ];
     }
 

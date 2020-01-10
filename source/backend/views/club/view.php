@@ -76,6 +76,18 @@ $this->params['breadcrumb'] = [
                     return Utility::getUrlClub($data["id"]);
                 },
 			],
+            [
+                'attribute' => 'stadium_id',
+                'value' => function ($data) use ($stadiums) {
+                    return !empty($stadiums[$data['stadium_id']])?$stadiums[$data['stadium_id']]:'';
+                },
+            ],
+            [
+                'attribute' => 'league',
+                'value' => function ($data) use ($leagues) {
+                    return $leagues;
+                },
+            ],
 			[
 				'attribute' => 'created_by',
 					'value' => function ($data) use ($users) {
@@ -98,12 +110,6 @@ $this->params['breadcrumb'] = [
 				'attribute' => 'updated_time',
 					'value' => function ($data) {
 						return Utility::format_datetime_vn($data['updated_time']);
-					},
-			],
-			[
-				'attribute' => 'stadium_id',
-					'value' => function ($data) use ($stadiums) {
-						return $stadiums[$data['stadium_id']];
 					},
 			],
         ],

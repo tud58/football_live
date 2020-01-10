@@ -73,6 +73,8 @@ class LeagueController extends Controller
         $model = new League();
 
         if ($model->load(Yii::$app->request->post())) {
+            $slug = Utility::convert_vi_to_en(Yii::$app->request->post('League')['name']);
+            $model->slug = $slug;
             $model->created_time = date('Y-m-d H:i:s');
             $model->created_by = Yii::$app->user->id;
             $model->updated_time = date('Y-m-d H:i:s');
@@ -112,6 +114,8 @@ class LeagueController extends Controller
         $logo = $model->logo;
 
         if ($model->load(Yii::$app->request->post())) {
+            $slug = Utility::convert_vi_to_en(Yii::$app->request->post('League')['name']);
+            $model->slug = $slug;
             $model->updated_time = date('Y-m-d H:i:s');
             $model->updated_by = Yii::$app->user->id;
             $model->logo = $logo;

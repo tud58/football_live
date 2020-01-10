@@ -2,13 +2,18 @@
 
 namespace backend\controllers;
 
+use backend\models\AdsLocation;
+use backend\models\AdsType;
+use common\Utility;
 use Yii;
 use backend\models\Ads;
 use backend\models\search\AdsSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\web\UploadedFile;
 
 /**
  * AdsController implements the CRUD actions for Ads model.
@@ -63,9 +68,24 @@ class AdsController extends Controller
     public function actionCreate()
     {
         $model = new Ads();
+        $ads_type = ArrayHelper::map(AdsType::find()->all(),'id','name');
+        $ads_location = ArrayHelper::map(AdsLocation::find()->where(['status'=>1,'deleted'=>0])->all(),'id','name');
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->created_time = date('Y-m-d H:i:s');
+            $model->created_by = Yii::$app->user->id;
+            $model->updated_time = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->id;
+            $model->img = '1';
             if ($model->save()) {
+                $file = UploadedFile::getInstance($model, 'img');
+                if (!empty($file)) {
+                    $file->saveAs(PATH_STORAGE . 'ads/' . $model->id . '_real.' . $file->extension);
+                    Utility::resize_crop_image(300, 100, PATH_STORAGE . 'ads/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'ads/' . $model->id . '.' . $file->extension, 100);
+
+                    $model->img = $model->id . '.' . $file->extension;
+                }
+                $model->save(false);
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -75,6 +95,8 @@ class AdsController extends Controller
         c:
         return $this->render('create', [
             'model' => $model,
+            'ads_type' => $ads_type,
+            'ads_location' => $ads_location,
         ]);
     }
 
@@ -87,9 +109,24 @@ class AdsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $ads_type = ArrayHelper::map(AdsType::find()->all(),'id','name');
+        $ads_location = ArrayHelper::map(AdsLocation::find()->where(['status'=>1,'deleted'=>0])->all(),'id','name');
+        $imgx = Utility::getUrlAds($id);
+        $img = $model->img;
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->updated_time = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->id;
+            $model->img = $img;
             if ($model->save()) {
+                $file = UploadedFile::getInstance($model, 'img');
+                if (!empty($file)) {
+                    $file->saveAs(PATH_STORAGE.'ads/' . $model->id . '_real.' . $file->extension);
+                    Utility::resize_crop_image(300,100, PATH_STORAGE.'ads/' . $model->id . '_real.' . $file->extension, PATH_STORAGE.'ads/' . $model->id . '.' . $file->extension,100);
+
+                    $model->img = $model->id.'.'.$file->extension;
+                    $model->save(false);
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
             Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -99,6 +136,9 @@ class AdsController extends Controller
         c:
         return $this->render('update', [
             'model' => $model,
+            'ads_type' => $ads_type,
+            'ads_location' => $ads_location,
+            'img' => $imgx,
         ]);
     }
 
@@ -118,7 +158,8 @@ class AdsController extends Controller
         try {
             $model = $this->findModel($obj_id);
             if ($obj_type == 'delete') {
-                $model->delete();
+                $model->deleted = 1;
+                $model->save(false);
             } else {
                 throw new \Exception("{obj_type} invalid");
             }

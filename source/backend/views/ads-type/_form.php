@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\User */
+/* @var $model backend\models\AdsType */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -13,7 +13,7 @@ use kartik\form\ActiveForm;
 
 <div class="portlet box">
     <div class="portlet-body form portlet-body-form">
-        <div class="user-form">
+        <div class="ads-type-form">
 
             <?php $form = ActiveForm::begin([
                 'id' => 'form-horizontal',
@@ -32,19 +32,7 @@ use kartik\form\ActiveForm;
                 </div>
             <?php } ?>
 
-            <?= $form->field($model, 'username')->textInput(['maxlength' => 255])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('username'))) ?>
-
-            <?= $model->isNewRecord?$form->field($model, 'password')->passwordInput(['maxlength' => 255])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('password'))):'' ?>
-
-            <?= $form->field($model, 'fullname')->textInput(['maxlength' => 255])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('fullname'))) ?>
-
-            <?= $form->field($model, 'phone')->textInput(['maxlength' => 255])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('phone'))) ?>
-
-            <?= $form->field($model, 'email')->textInput(['maxlength' => 255])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('email'))) ?>
-
-            <?= $form->field($model, 'status', [
-                        'template' => '<div>{label}<div class="col-sm-9 checkbox_element">{input}</div></div>'
-                    ])->checkbox([])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('status'))) ?>
+            <?= $form->field($model, 'name')->textInput(['maxlength' => 255])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('name'))) ?>
 
             <div class="form-group" style="text-align: center">
                 <?= Html::submitButton('<i class="fa fa-save"></i> ' . 'Save', ['class' => 'btn btn-primary']) ?>

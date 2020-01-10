@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use common\Utility;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\MatchSearch */
@@ -55,14 +56,6 @@ $this->params['breadcrumb'] = [
                 'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;']
             ],
 			[
-			'attribute' => 'id',
-			'value' => function ($data) { 
-				return $data['id'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-			[
 			'attribute' => 'title',
 			'value' => function ($data) { 
 				return $data['title'];
@@ -72,129 +65,54 @@ $this->params['breadcrumb'] = [
 		],
 			[
 			'attribute' => 'league_id',
-			'value' => function ($data) { 
-				return $data['league_id'];
+			'value' => function ($data) use ($leagues) {
+				return !empty($leagues[$data['league_id']])?$leagues[$data['league_id']]:"";
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
 			[
 			'attribute' => 'club1_id',
-			'value' => function ($data) { 
-				return $data['club1_id'];
+			'value' => function ($data) use ($clubs) {
+				return !empty($clubs[$data['club1_id']])?$clubs[$data['club1_id']]:'';
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
 			[
 			'attribute' => 'club2_id',
-			'value' => function ($data) { 
-				return $data['club2_id'];
+			'value' => function ($data) use ($clubs) {
+				return !empty($clubs[$data['club2_id']])?$clubs[$data['club2_id']]:'';
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		/*
 		[
 			'attribute' => 'start_time',
 			'value' => function ($data) { 
-				return $data['start_time'];
+				return Utility::format_datetime_vn($data['start_time']);
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		*/
-		/*
+
 		[
 			'attribute' => 'stadium_id',
-			'value' => function ($data) { 
-				return $data['stadium_id'];
+			'value' => function ($data) use ($stadiums) {
+				return !empty($stadiums[$data['stadium_id']])?$stadiums[$data['stadium_id']]:'';
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		*/
-		/*
-		[
-			'attribute' => 'url',
-			'value' => function ($data) { 
-				return $data['url'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-		/*
 		[
 			'attribute' => 'status',
-			'value' => function ($data) { 
-				return $data['status'];
-			},
+            'format' => 'raw',
+            'value' => function ($data) {
+                return $data['status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+            },
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		*/
-		/*
-		[
-			'attribute' => 'deleted',
-			'value' => function ($data) { 
-				return $data['deleted'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-		/*
-		[
-			'attribute' => 'thumb',
-			'value' => function ($data) { 
-				return $data['thumb'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-		/*
-		[
-			'attribute' => 'created_by',
-			'value' => function ($data) { 
-				return $data['created_by'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-		/*
-		[
-			'attribute' => 'created_time',
-			'value' => function ($data) { 
-				return $data['created_time'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-		/*
-		[
-			'attribute' => 'updated_by',
-			'value' => function ($data) { 
-				return $data['updated_by'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-		/*
-		[
-			'attribute' => 'updated_time',
-			'value' => function ($data) { 
-				return $data['updated_time'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		*/
-		/*
 		[
 			'attribute' => 'sort',
 			'value' => function ($data) { 
@@ -203,7 +121,24 @@ $this->params['breadcrumb'] = [
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		*/
+		[
+			'attribute' => 'url_status',
+            'format' => 'raw',
+            'value' => function ($data) {
+                return $data['url_status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+            },
+			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
+			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+		],
+		[
+			'attribute' => 'hot',
+            'format' => 'raw',
+            'value' => function ($data) {
+                return $data['hot']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+            },
+			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
+			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+		],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
@@ -215,14 +150,14 @@ $this->params['breadcrumb'] = [
                     'view' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
                             'title' => 'View',
-                            'class'=>'btn btn-primary btn-xs btn-app',
+                            'class'=>'btn btn-primary btn-xs btn-app mr-1',
                             'data-pjax' => '0',
                         ]);
                     },
                     'update' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                             'title' => 'Update',
-                            'class'=>'btn btn-primary btn-xs btn-app',
+                            'class'=>'btn btn-primary btn-xs btn-app mr-1',
                             'data-pjax' => '0',
                         ]);
                     },

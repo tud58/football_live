@@ -36,8 +36,9 @@ return [
         ],
         'user' => [
             'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            'authTimeout' => 8*60*60, // auth expire
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
@@ -89,5 +90,19 @@ return [
             ]
         ],
     ],
+    'as beforeRequest' =>
+        [
+            'class' => 'yii\filters\AccessControl',
+            'rules' =>  [
+                [
+                    'actions' => ['login', 'error'],
+                    'allow' => true,
+                ],
+                [
+                    'allow' => true,
+                    'roles' => ['@'],
+                ],
+            ],
+        ],
     'params' => $params,
 ];

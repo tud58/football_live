@@ -5,10 +5,10 @@ use yii\helpers\Url;
 
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Match */
+/* @var $model backend\models\AdsType */
 
-$this->title = 'Match';
-$this->params['breadcrumbs'][] = ['label' => 'Match', 'url' => ['index']];
+$this->title = 'Ads Type';
+$this->params['breadcrumbs'][] = ['label' => 'Ads Type', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['title'] = 'Create';
 $this->params['menu'] = [
@@ -26,7 +26,7 @@ $this->params['breadcrumb'] = [
         'active' => false
     ],
     [
-        'label' => 'Match',
+        'label' => 'Ads Type',
         'link' => Url::toRoute(['index']),
         'active' => false
     ],
@@ -38,12 +38,9 @@ $this->params['breadcrumb'] = [
 ];
 
 ?>
-<div class="match-update">
+<div class="ads-type-update">
     <?= $this->render('_form', [
         'model' => $model,
-        'leagues' => $leagues,
-        'clubs' => $clubs,
-        'stadiums' => $stadiums,
     ]) ?>
 </div>
 
