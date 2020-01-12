@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
+use common\Utility;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Ads */
@@ -63,10 +64,16 @@ $this->params['breadcrumb'] = [
 			],
 			[
 				'attribute' => 'ads_location_id',
-					'value' => function ($data) {
-						return $data['ads_location_id'];
-					},
+                'value' => function ($data) use ($ads_location) {
+                    return $ads_location[$data['ads_location_id']];
+                },
 			],
+            [
+                'attribute' => 'type',
+                'value' => function ($data) use ($ads_type) {
+                    return $ads_type[$data['type']];
+                },
+            ],
 			[
 				'attribute' => 'url',
 					'value' => function ($data) {
@@ -75,45 +82,41 @@ $this->params['breadcrumb'] = [
 			],
 			[
 				'attribute' => 'img',
-					'value' => function ($data) {
-						return $data['img'];
-					},
+                'format' => ['image',['width'=>'300','height'=>'100']],
+                'value' => function ($data) {
+                    return Utility::getUrlAds($data["id"]);
+                },
 			],
 			[
 				'attribute' => 'created_by',
-					'value' => function ($data) {
-						return $data['created_by'];
+					'value' => function ($data) use ($users) {
+						return $users[$data['created_by']];
 					},
 			],
 			[
 				'attribute' => 'created_time',
 					'value' => function ($data) {
-						return $data['created_time'];
+						return Utility::format_datetime_vn($data['created_time']);
 					},
 			],
 			[
 				'attribute' => 'updated_by',
-					'value' => function ($data) {
-						return $data['updated_by'];
+					'value' => function ($data) use ($users) {
+						return $users[$data['updated_by']];
 					},
 			],
 			[
 				'attribute' => 'updated_time',
 					'value' => function ($data) {
-						return $data['updated_time'];
+						return Utility::format_datetime_vn($data['updated_time']);
 					},
 			],
 			[
 				'attribute' => 'status',
-					'value' => function ($data) {
-						return $data['status'];
-					},
-			],
-			[
-				'attribute' => 'deleted',
-					'value' => function ($data) {
-						return $data['deleted'];
-					},
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return $data['status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+                },
 			],
         ],
     ]) ?>

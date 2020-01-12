@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\AdsLocation;
 use backend\models\AdsType;
+use backend\models\User;
 use common\Utility;
 use Yii;
 use backend\models\Ads;
@@ -40,10 +41,14 @@ class AdsController extends Controller
     {
         $searchModel = new AdsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $ads_type = ArrayHelper::map(AdsType::find()->all(),'id','name');
+        $ads_location = ArrayHelper::map(AdsLocation::find()->where(['status'=>1,'deleted'=>0])->all(),'id','name');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'ads_type' => $ads_type,
+            'ads_location' => $ads_location,
         ]);
     }
 
@@ -55,8 +60,15 @@ class AdsController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+        $ads_type = ArrayHelper::map(AdsType::find()->all(),'id','name');
+        $ads_location = ArrayHelper::map(AdsLocation::find()->where(['status'=>1,'deleted'=>0])->all(),'id','name');
+        $users = ArrayHelper::map(User::find()->All(),'id','username');
+
         return $this->render('view', [
             'model' => $model,
+            'ads_type' => $ads_type,
+            'ads_location' => $ads_location,
+            'users' => $users,
         ]);
     }
 
@@ -76,12 +88,12 @@ class AdsController extends Controller
             $model->created_by = Yii::$app->user->id;
             $model->updated_time = date('Y-m-d H:i:s');
             $model->updated_by = Yii::$app->user->id;
-            $model->img = '1';
             if ($model->save()) {
                 $file = UploadedFile::getInstance($model, 'img');
                 if (!empty($file)) {
-                    $file->saveAs(PATH_STORAGE . 'ads/' . $model->id . '_real.' . $file->extension);
-                    Utility::resize_crop_image(300, 100, PATH_STORAGE . 'ads/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'ads/' . $model->id . '.' . $file->extension, 100);
+                    $file->saveAs(PATH_STORAGE . 'ads/' . $model->id . $file->extension);
+//                    $file->saveAs(PATH_STORAGE . 'ads/' . $model->id . '_real.' . $file->extension);
+//                    Utility::resize_crop_image(300, 100, PATH_STORAGE . 'ads/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'ads/' . $model->id . '.' . $file->extension, 100);
 
                     $model->img = $model->id . '.' . $file->extension;
                 }
@@ -121,8 +133,9 @@ class AdsController extends Controller
             if ($model->save()) {
                 $file = UploadedFile::getInstance($model, 'img');
                 if (!empty($file)) {
-                    $file->saveAs(PATH_STORAGE.'ads/' . $model->id . '_real.' . $file->extension);
-                    Utility::resize_crop_image(300,100, PATH_STORAGE.'ads/' . $model->id . '_real.' . $file->extension, PATH_STORAGE.'ads/' . $model->id . '.' . $file->extension,100);
+                    $file->saveAs(PATH_STORAGE.'ads/' . $model->id . $file->extension);
+//                    $file->saveAs(PATH_STORAGE.'ads/' . $model->id . '_real.' . $file->extension);
+//                    Utility::resize_crop_image(300,100, PATH_STORAGE.'ads/' . $model->id . '_real.' . $file->extension, PATH_STORAGE.'ads/' . $model->id . '.' . $file->extension,100);
 
                     $model->img = $model->id.'.'.$file->extension;
                     $model->save(false);

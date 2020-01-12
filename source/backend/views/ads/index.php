@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use common\Utility;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\AdsSearch */
@@ -54,14 +55,6 @@ $this->params['breadcrumb'] = [
                 'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
                 'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;']
             ],
-			/*[
-			'attribute' => 'id',
-			'value' => function ($data) { 
-				return $data['id'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],*/
 			[
 			'attribute' => 'title',
 			'value' => function ($data) { 
@@ -71,17 +64,16 @@ $this->params['breadcrumb'] = [
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
 			[
-			'attribute' => 'description',
-			'value' => function ($data) { 
-				return $data['description'];
+			'attribute' => 'ads_location_id',
+			'value' => function ($data) use ($ads_location) {
+				return $ads_location[$data['ads_location_id']];
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-			[
-			'attribute' => 'ads_location_id',
-			'value' => function ($data) { 
-				return $data['ads_location_id'];
+		],[
+			'attribute' => 'type',
+			'value' => function ($data) use ($ads_type) {
+				return $ads_type[$data['type']];
 			},
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
@@ -94,12 +86,12 @@ $this->params['breadcrumb'] = [
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-
 		[
 			'attribute' => 'img',
-			'value' => function ($data) { 
-				return $data['img'];
-			},
+            'format' => ['image',['width'=>'300','height'=>'100']],
+            'value' => function ($data) {
+                return Utility::getUrlAds($data["id"]);
+            },
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
@@ -147,9 +139,10 @@ $this->params['breadcrumb'] = [
 
 		[
 			'attribute' => 'status',
-			'value' => function ($data) { 
-				return $data['status'];
-			},
+            'format' => 'raw',
+            'value' => function ($data) {
+                return $data['status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+            },
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],

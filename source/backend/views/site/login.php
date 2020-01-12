@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <meta name="csrf-param" content="_csrf-backend">
     <meta name="csrf-token" content="BzOomFjMJ8SI37qT0QwVaDGRfJ8uYUpj26-JDxyr2QJIasrHHaR3hf-0zduzfndRXuYbrFoXOQqj7b1QT_2hOg==">
 
-    <link href="/assets/e8dea343/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="/css/site.css" rel="stylesheet">
     <link href="/css/jquery-confirm.min.css" rel="stylesheet">
     <link href="/css/jquery.toast.css" rel="stylesheet">

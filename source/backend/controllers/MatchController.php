@@ -104,8 +104,9 @@ class MatchController extends Controller
             if ($model->save()) {
                 $file = UploadedFile::getInstance($model, 'thumb');
                 if (!empty($file)) {
-                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension);
-                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'matchs/' . $model->id . '.' . $file->extension, 100);
+                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . $file->extension);
+//                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension);
+//                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'matchs/' . $model->id . '.' . $file->extension, 100);
 
                     $model->thumb = $model->id . '.' . $file->extension;
                 }
@@ -163,8 +164,9 @@ class MatchController extends Controller
             if ($model->save()) {
                 $file = UploadedFile::getInstance($model, 'thumb');
                 if (!empty($file)) {
-                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension);
-                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'matchs/' . $model->id . '.' . $file->extension, 100);
+                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . $file->extension);
+//                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension);
+//                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'matchs/' . $model->id . '.' . $file->extension, 100);
 
                     $model->thumb = $model->id . '.' . $file->extension;
                 }

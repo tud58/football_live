@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use frontend\models\Match;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -28,7 +29,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup', 'load-match'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -40,12 +41,18 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [
+                        'actions' => ['load-match'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'load-match' => ['post'],
                 ],
             ],
         ];
@@ -75,6 +82,22 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionLoadMatch()
+    {
+        die('123');
+        $request = Yii::$app->request->post();
+        $type = !empty($request['type'])?$request['type']:1;
+        $value = !empty($request['value'])?$request['value']:0;
+
+        $matchs = (New Match())->getMatch($type,$value);
+
+        var_dump($matchs);die;
+
+        return $this->renderAjax('load_match', [
+            'matchs' => $matchs,
+        ]);
     }
 
     /**

@@ -10,6 +10,17 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
+$leagues = \frontend\models\League::findAll(['status'=>1, 'deleted'=>0]);
+
+$times = [
+        0 => 'Tất Cả',
+        1 => 'Trận HOT',
+        2 => 'Đang đá',
+        3 => 'Hôm nay',
+        4 => 'Ngày mai',
+        5 => 'Tuần này',
+];
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -27,38 +38,36 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
+    <nav id="w0" class="navbar-inverse navbar-fixed-top navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w0-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/index.php">FootBall Live</a>
+            </div>
+            <div id="w0-collapse" class="collapse navbar-collapse">
+                <ul id="w1" class="navbar-nav navbar-right nav">
+                    <?php foreach ($times as $key=>$value) { ?>
+                        <li class="menu_<?=$key?>"><a href="javascript:void(0);" onclick="loadMatch(1,<?=$key?>)"><?=$value?></a></li>
+                    <?php } ?>
+                    <li style="margin-top: 10px; margin-left: 20px">
+                        <select class="form-control" onchange="loadMatch(2,1)" id="league" name="league">
+                            <option value="0">Tất cả giải đấu</option>
+                            <?php if (!empty($leagues)) { ?>
+                                <?php foreach ($leagues as $l) { ?>
+                                    <option value="<?=$l->id?>"><?=$l->name?></option>
+                                <?php }?>
+                            <?php } ?>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div class="container">
         <?= Breadcrumbs::widget([
