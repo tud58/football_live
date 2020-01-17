@@ -447,11 +447,19 @@ a.desc:after {
 .BannerStickyLeft {
     position: absolute;
     top: 0;
-    left: -115px;
+    left: 200px;
 }
 
 .BannerStickyRight {
     position: absolute;
+    right: 200px;
+}
+
+.mb-10 {
+    margin-bottom: 10px!important;
+}
+.d-block {
+    display: block!important;
 }
 
 

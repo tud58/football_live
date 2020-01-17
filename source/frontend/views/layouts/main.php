@@ -97,7 +97,7 @@ AppAsset::register($this);
     </div>
 </div>
 
-<div class="BannerStickyRight hidden-sm-down" style="top: 100px; right: 4px;">
+<div class="BannerStickyRight hidden-sm-down" style="top: 100px;">
     <div class="BannerStickyRight_content" style="position: fixed;">
 
         <a href="https://11met.live/uploads/banner/nhatvip-B3-float-right.html" target="_blank" class="d-block mb-10">
