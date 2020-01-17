@@ -10,17 +10,6 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
-$leagues = \frontend\models\League::findAll(['status'=>1, 'deleted'=>0]);
-
-$times = [
-        0 => 'Tất Cả',
-        1 => 'Trận HOT',
-        2 => 'Đang đá',
-        3 => 'Hôm nay',
-        4 => 'Ngày mai',
-        5 => 'Tuần này',
-];
-
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -32,10 +21,30 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+
+    <script src="https://use.fontawesome.com/20603b964f.js"></script>
+    <script type="text/javascript" src="https://cdn.jwplayer.com/libraries/gaqdEdUp.js"></script>
+    <script type="text/javascript">jwplayer.key = 'ypdL3Acgwp4Uh2/LDE9dYh3W/EPwDMuA2yid4ytssfI=';</script>
+
+    <script src="https://unpkg.com/swiper/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
+<div class="BannerStickyLeft hidden-sm-down" style="top: 100px;">
+    <div class="BannerStickyLeft_content" style="position: fixed;">
+
+        <a href="https://11met.live/uploads/banner/yo88-float-left.html" target="_blank" class="d-block mb-10">
+            <img width="120px" class="img-fluid" src="https://i.imgur.com/U45AKcZ.gif" title="game bài đổi thưởng" alt="game bài đổi thưởng nhiều người chơi nhất">
+        </a>
+        <a href="https://11met.live/uploads/banner/go88-B2-float-left.html" target="_blank" class="d-block mb-10">
+            <img width="120px" class="img-fluid" src="https://i.imgur.com/6pmzNRs.gif" title="game bài đổi thưởng go88" alt="game bài đổi thưởng go88">
+        </a>
+    </div>
+</div>
 
 <div class="wrap">
     <div class="container ads ads-top-nav" style="padding: 0;">
@@ -79,7 +88,7 @@ AppAsset::register($this);
         </div>
     </nav>
 
-    <div class="container" style="padding: 60px 0;">
+    <div class="container" style="padding: 60px 0; background-color: #000;">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -88,13 +97,36 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+<div class="BannerStickyRight hidden-sm-down" style="top: 100px; right: 4px;">
+    <div class="BannerStickyRight_content" style="position: fixed;">
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <a href="https://11met.live/uploads/banner/nhatvip-B3-float-right.html" target="_blank" class="d-block mb-10">
+            <img width="120px" class="img-fluid" src="https://i.imgur.com/W7Sb6eB.gif" title="game bài đổi thưởng go88" alt="game bài đổi thưởng go88">
+        </a>
+        <a href="https://11met.live/uploads/banner/zbet-B4-float-right.html" target="_blank" class="d-block mb-10">
+            <img width="120px" class="img-fluid" src="https://i.imgur.com/5pp2K7F.gif" alt="banner">
+        </a>
     </div>
-</footer>
+</div>
+
+<div class="BannerFixed BannerFixedLeft ad_c1 hidden-sm-down">
+    <div class="BannerFixedLeft_content">
+
+        <a href="https://11met.live/uploads/banner/C1bong99.html" target="_blank" class="d-block mb-10">
+            <img width="360px" class="img-fluid" src="https://i.imgur.com/9BugJH4.gif" alt="banner">
+        </a>
+        <div class="close-banner"><i class="glyphicon glyphicon-remove-sign"></i></div>
+    </div>
+</div>
+<div class="BannerFixed BannerFixedRight ad_c2 hidden-sm-down">
+    <div class="BannerFixedRight_content">
+
+        <a href="https://11met.live/uploads/banner/C28live.html" target="_blank" class="d-block mb-10">
+            <img width="360px" class="img-fluid" src="https://i.imgur.com/9BugJH4.gif" alt="banner">
+        </a>
+        <div class="close-banner"><i class="glyphicon glyphicon-remove-sign"></i></div>
+    </div>
+</div>
 
 <?php $this->endBody() ?>
 </body>

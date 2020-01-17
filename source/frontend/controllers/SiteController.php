@@ -84,6 +84,11 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionLive()
+    {die;
+        return $this->render('live');
+    }
+
     public function actionLoadMatch()
     {
         die('123');

@@ -34,90 +34,7 @@ $this->title = 'FootBall Live';
                 </div>
                 <div class="main-content" style="width: 65%; float: left; margin-left: 15px">
                     <div class="box-hot" style="background-image: url('/img/img1.png'); width: 100%; min-height: 450px;">
-                        <div class="home-flag uk-first-column" style="width: 35%; float: left; text-align: center; margin-top: 125px;">
-                            <img class="tv-img1" alt="" src="https://images.fotmob.com/image_resources/logo/teamlogo/9768_small.png">
-                        </div>
-                        <div class="" style="width: 20%; float: left; margin-left: 4%; margin-right: 4%; text-align: center; margin-top: 125px;">
-                            <div class="tv-box-5 uk-text-center" style="padding-top: 20px;">
-                                <div class="c2" style="font-size: 50px;  color: #fff; font-weight: bold;">02:45</div>
-                                <div class="c3" style="font-size: 20px;  color: #ccc; font-weight: bold;">Ngày mai</div>
-                            </div>
-                        </div>
-                        <div class="guest-flag" style="width: 35%; float: left; text-align: center; margin-top: 125px;">
-                            <img class="tv-img1" alt="" src="https://images.fotmob.com/image_resources/logo/teamlogo/9772_small.png">
-                        </div>
-                    </div>
-                    <div class="swiper-container">
-                        <ul class="swiper-wrapper" style="list-style-type:none;">
-                            <li class="swiper-slide">
-                                <div class="box-hot" style="background-image: url('https://binhluan.tv/imgs/20180726-The18-Image-How-Many-Players-On-A-Soccer-Field.png'); min-height: 150px;">
-                                    <div class="home-flag uk-first-column" style="width: 35%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <img class="tv-img1" alt="" src="https://images.fotmob.com/image_resources/logo/teamlogo/9768_small.png" style="width: 100%">
-                                    </div>
-                                    <div class="" style="width: 30%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <div class="tv-box-5 uk-text-center" style="padding-top: 5px;">
-                                            <div class="c2" style="font-size: 20px;  color: #fff; font-weight: bold;">02:45</div>
-                                            <div class="c3" style="font-size: 13px;  color: #ccc; font-weight: bold;">19/01</div>
-                                        </div>
-                                    </div>
-                                    <div class="guest-flag" style="width: 35%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <img class="tv-img1" alt="" src="https://images.fotmob.com/image_resources/logo/teamlogo/9772_small.png" style="width: 100%">
-                                    </div>
-                                </div>
-                                <div class="box-hot-info">
-                                    <p class="name-match">Sporting - Benfica</p>
-                                    <p class="name-league">Giải VĐQG Bồ Đào Nha</p>
-                                </div>
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="box-hot" style="background-image: url('https://binhluan.tv/imgs/20180726-The18-Image-How-Many-Players-On-A-Soccer-Field.png'); min-height: 150px;">
-                                    <div class="home-flag uk-first-column" style="width: 35%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <img class="tv-img1" alt="" src="https://images.fotmob.com/image_resources/logo/teamlogo/9768_small.png" style="width: 100%">
-                                    </div>
-                                    <div class="" style="width: 30%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <div class="tv-box-5 uk-text-center" style="padding-top: 5px;">
-                                            <div class="c2" style="font-size: 20px;  color: #fff; font-weight: bold;">02:45</div>
-                                            <div class="c3" style="font-size: 13px;  color: #ccc; font-weight: bold;">20/01</div>
-                                        </div>
-                                    </div>
-                                    <div class="guest-flag" style="width: 35%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <img class="tv-img1" alt="" src="https://images.fotmob.com/image_resources/logo/teamlogo/9772_small.png" style="width: 100%">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="box-hot" style="background-image: url('https://binhluan.tv/imgs/20180726-The18-Image-How-Many-Players-On-A-Soccer-Field.png'); min-height: 150px;">
-                                    <div class="home-flag uk-first-column" style="width: 35%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <img class="tv-img1" alt="" src="https://images.fotmob.com/image_resources/logo/teamlogo/9768_small.png" style="width: 100%">
-                                    </div>
-                                    <div class="" style="width: 30%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <div class="tv-box-5 uk-text-center" style="padding-top: 5px;">
-                                            <div class="c2" style="font-size: 20px;  color: #fff; font-weight: bold;">02:45</div>
-                                            <div class="c3" style="font-size: 13px;  color: #ccc; font-weight: bold;">21/01</div>
-                                        </div>
-                                    </div>
-                                    <div class="guest-flag" style="width: 35%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <img class="tv-img1" alt="" src="https://images.fotmob.com/image_resources/logo/teamlogo/9772_small.png" style="width: 100%">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="box-hot" style="background-image: url('https://binhluan.tv/imgs/20180726-The18-Image-How-Many-Players-On-A-Soccer-Field.png'); min-height: 150px;">
-                                    <div class="home-flag uk-first-column" style="width: 35%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <img class="tv-img1" alt="" src="https://images.fotmob.com/image_resources/logo/teamlogo/9768_small.png" style="width: 100%">
-                                    </div>
-                                    <div class="" style="width: 30%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <div class="tv-box-5 uk-text-center" style="padding-top: 5px;">
-                                            <div class="c2" style="font-size: 20px;  color: #fff; font-weight: bold;">02:45</div>
-                                            <div class="c3" style="font-size: 13px;  color: #ccc; font-weight: bold;">Ngày mai</div>
-                                        </div>
-                                    </div>
-                                    <div class="guest-flag" style="width: 35%; float: left; text-align: center; margin-top: 35px; max-height: 70px;">
-                                        <img class="tv-img1" alt="" src="https://images.fotmob.com/image_resources/logo/teamlogo/9772_small.png" style="width: 100%">
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                        <div id="myElement1" class="element"></div>
                     </div>
                     <div class="ads ads-content">
                         <img src="/img/jcTb0Po.gif" style="width: 100%; margin-top: 10px;">
@@ -1636,11 +1553,15 @@ $this->title = 'FootBall Live';
 </div>
 
 <script>
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        slidesPerView: 'auto',
-        paginationClickable: true,
-        spaceBetween: 10,
-        loop: true
+    jwplayer("myElement1").setup({
+        image: "https://content.jwplatform.com/thumbs/xJ7Wcodt-720.jpg",
+        aspectratio: "16:9",
+        width: '50%',
+        aspectratio: '16:9',
+        autostart: true,
+        file : 'https://75c5cf3f.vws.vegacdn.vn/cliptv_live/vtv3hd.stream_level4/playlist.m3u8',
+        abouttext: 'FILMKACA',
+        aboutlink: 'http://filmkaca.xyz',
+        captions: {color: '#ffb800',fontSize: 30,backgroundOpacity: 0},
     });
 </script>
