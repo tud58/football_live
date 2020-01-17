@@ -38,7 +38,13 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <nav id="w0" class="navbar-inverse navbar-fixed-top navbar">
+    <div class="container ads ads-top-nav" style="padding: 0;">
+        <img src="/img/VFez35m.gif" style="width: 100%">
+    </div>
+    <div class="logo" style="width: 100%; height: 50px; text-align: center;">
+        <a class="" href="/index.php" style="font-size: 25px; font-weight: bold; text-decoration: none; line-height: 50px;">FootBall Live</a>
+    </div>
+    <nav id="w0" class="navbar-inverse navbar-fixed-top navbar" style="top: auto; position: absolute;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w0-collapse">
@@ -47,29 +53,33 @@ AppAsset::register($this);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/index.php">FootBall Live</a>
             </div>
             <div id="w0-collapse" class="collapse navbar-collapse">
-                <ul id="w1" class="navbar-nav navbar-right nav">
-                    <?php foreach ($times as $key=>$value) { ?>
-                        <li class="menu_<?=$key?>"><a href="javascript:void(0);" onclick="loadMatch(1,<?=$key?>)"><?=$value?></a></li>
-                    <?php } ?>
-                    <li style="margin-top: 10px; margin-left: 20px">
-                        <select class="form-control" onchange="loadMatch(2,1)" id="league" name="league">
-                            <option value="0">Tất cả giải đấu</option>
-                            <?php if (!empty($leagues)) { ?>
-                                <?php foreach ($leagues as $l) { ?>
-                                    <option value="<?=$l->id?>"><?=$l->name?></option>
-                                <?php }?>
-                            <?php } ?>
-                        </select>
+                <ul id="w1" class="navbar-nav nav" style="text-align: center; float: none;">
+                    <li class="col-sm-2">
+                        <a href="/">Lịch trực tiếp</a>
+                    </li>
+                    <li class="col-sm-2">
+                        <a href="/">Tỉ số</a>
+                    </li>
+                    <li class="col-sm-2">
+                        <a href="/">Tin tức</a>
+                    </li>
+                    <li class="col-sm-2">
+                        <a href="/">Video bàn thắng</a>
+                    </li>
+                    <li class="col-sm-2">
+                        <a href="/">Soi kèo</a>
+                    </li>
+                    <li class="col-sm-2">
+                        <a href="/">Link Sopcast</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container" style="padding: 60px 0;">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
