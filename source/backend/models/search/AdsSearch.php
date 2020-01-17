@@ -59,7 +59,7 @@ class AdsSearch extends Ads
             'updated_by' => $this->updated_by,
             'updated_time' => $this->updated_time,
             'status' => $this->status,
-            'deleted' => $this->deleted,
+            'deleted' => 0,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

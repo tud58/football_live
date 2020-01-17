@@ -20,9 +20,9 @@ use yii\web\IdentityInterface;
  * @property int|null $deleted
  * @property int|null $type
  * @property int|null $created_by
- * @property string|null $created_time
+ * @property string $created_at
  * @property int|null $update_by
- * @property string|null $updated_time
+ * @property string $updated_at
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -57,7 +57,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['username', 'password'], 'required'],
             [['status', 'deleted', 'type', 'created_by', 'update_by'], 'integer'],
-            [['created_time', 'updated_time'], 'safe'],
+            [['created_at', 'updated_at'], 'safe'],
             [['username', 'password', 'fullname', 'phone', 'email'], 'string', 'max' => 255],
         ];
     }
@@ -78,9 +78,9 @@ class User extends ActiveRecord implements IdentityInterface
             'deleted' => 'Deleted',
             'type' => 'Type',
             'created_by' => 'Created By',
-            'created_time' => 'Created Time',
+            'created_at' => 'Created At',
             'update_by' => 'Update By',
-            'updated_time' => 'Updated Time',
+            'updated_at' => 'Updated At',
         ];
     }
 

@@ -70,10 +70,10 @@ class UserController extends Controller
             $model->password = Yii::$app->security->generatePasswordHash($request["password"]);
             $model->type = 1;
             $model->created_by = Yii::$app->user->id;
-            $model->created_time = date('Y-m-d H:i:s');
+            $model->created_at = date('Y-m-d H:i:s');
             $model->update_by = Yii::$app->user->id;
-            $model->updated_time = date('Y-m-d H:i:s');
-            if ($model->save()) {
+            $model->updated_at = date('Y-m-d H:i:s');
+            if ($model->save(false)) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -98,8 +98,8 @@ class UserController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->update_by = Yii::$app->user->id;
-            $model->updated_time = date('Y-m-d H:i:s');
-            if ($model->save()) {
+            $model->updated_at = date('Y-m-d H:i:s');
+            if ($model->save(false)) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -128,7 +128,8 @@ class UserController extends Controller
         try {
             $model = $this->findModel($obj_id);
             if ($obj_type == 'delete') {
-                $model->delete();
+                $model->deleted = 1;
+                $model->save(false);
             } else {
                 throw new \Exception("{obj_type} invalid");
             }

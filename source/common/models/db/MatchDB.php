@@ -14,7 +14,7 @@ use Yii;
  * @property integer $club2_id
  * @property string $start_time
  * @property integer $stadium_id
- * @property string $url
+ * @property string $url1
  * @property integer $status
  * @property integer $deleted
  * @property string $thumb
@@ -23,9 +23,11 @@ use Yii;
  * @property integer $updated_by
  * @property string $updated_time
  * @property integer $sort
- * @property integer $url_status
+ * @property integer $feature_match
  * @property string $slug
- * @property integer $hot
+ * @property integer $hot_match
+ * @property string $url2
+ * @property string $url3
  */
 class MatchDB extends \yii\db\ActiveRecord
 {
@@ -44,9 +46,9 @@ class MatchDB extends \yii\db\ActiveRecord
     {
         return [
             [['league_id', 'club1_id', 'club2_id', 'start_time'], 'required'],
-            [['league_id', 'club1_id', 'club2_id', 'stadium_id', 'status', 'deleted', 'created_by', 'updated_by', 'sort', 'url_status', 'hot'], 'integer'],
+            [['league_id', 'club1_id', 'club2_id', 'stadium_id', 'status', 'deleted', 'created_by', 'updated_by', 'sort', 'feature_match', 'hot_match'], 'integer'],
             [['start_time', 'created_time', 'updated_time'], 'safe'],
-            [['title', 'url', 'slug'], 'string', 'max' => 500],
+            [['title', 'url1', 'slug', 'url2', 'url3'], 'string', 'max' => 500],
             [['thumb'], 'string', 'max' => 255]
         ];
     }
@@ -64,7 +66,7 @@ class MatchDB extends \yii\db\ActiveRecord
             'club2_id' => 'Club2 ID',
             'start_time' => 'Start Time',
             'stadium_id' => 'Stadium ID',
-            'url' => 'Url',
+            'url1' => 'Url1',
             'status' => 'Status',
             'deleted' => 'Deleted',
             'thumb' => 'Thumb',
@@ -73,9 +75,11 @@ class MatchDB extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'updated_time' => 'Updated Time',
             'sort' => 'Sort',
-            'url_status' => 'Url Status',
+            'feature_match' => 'Feature Match',
             'slug' => 'Slug',
-            'hot' => 'Hot',
+            'hot_match' => 'Hot Match',
+            'url2' => 'Url2',
+            'url3' => 'Url3',
         ];
     }
 }

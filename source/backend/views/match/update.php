@@ -37,7 +37,6 @@ $this->params['breadcrumb'] = [
         'leagues' => $leagues,
         'clubs' => $clubs,
         'stadiums' => $stadiums,
-        'img' => $img,
     ]) ?>
 
 </div>

@@ -23,11 +23,13 @@ use common\Utility;
             ]); ?>
 
 
-            <?php if (Yii::$app->session->hasFlash('error')) { ?>                <div class="alert alert-danger">
+            <?php if (Yii::$app->session->hasFlash('error')) { ?>
+                <div class="alert alert-danger">
                     <button class="close" data-close="alert"></button>
                     <span><?php echo Yii::$app->session->getFlash('error') ?></span>
                 </div>
-            <?php } elseif (Yii::$app->session->hasFlash('success')) { ?>                <div class="alert alert-success">
+            <?php } elseif (Yii::$app->session->hasFlash('success')) { ?>
+                <div class="alert alert-success">
                     <button class="close" data-close="alert"></button>
                     <span><?php echo Yii::$app->session->getFlash('success') ?></span>
                 </div>
@@ -45,32 +47,21 @@ use common\Utility;
 
             <?= $form->field($model, 'stadium_id')->dropDownList($stadiums,['prompt'=>'Chọn sân bóng'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('stadium_id'))) ?>
 
-            <?= $form->field($model, 'url')->textInput(['maxlength' => 500])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('url'))) ?>
+            <?= $form->field($model, 'url1')->textInput(['maxlength' => 500])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('url1'))) ?>
+            <?= $form->field($model, 'url2')->textInput(['maxlength' => 500])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('url2'))) ?>
+            <?= $form->field($model, 'url3')->textInput(['maxlength' => 500])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('url3'))) ?>
 
             <?= $form->field($model, 'status', [
                                 'template' => '<div>{label}<div class="col-sm-9 checkbox_element">{input}</div></div>'
                             ])->checkbox(['label' => 'Trạng thái trận đấu'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('status'))) ?>
 
-            <?= $form->field($model, 'url_status', [
+            <?= $form->field($model, 'feature_match', [
                 'template' => '<div>{label}<div class="col-sm-9 checkbox_element">{input}</div></div>'
-            ])->checkbox(['label' => 'Trạng thái link'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('url_status'))) ?>
+            ])->checkbox(['label' => 'Trận đấu nổi bật'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('feature_match'))) ?>
 
-            <?= $form->field($model, 'hot', [
+            <?= $form->field($model, 'hot_match', [
                 'template' => '<div>{label}<div class="col-sm-9 checkbox_element">{input}</div></div>'
-            ])->checkbox(['label' => 'Trận đấu nổi bật'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('hot'))) ?>
-
-            <?= $form->field($model, 'thumb',['template' => '<div>{label}<div class="col-sm-9 checkbox_element pl-0">{input}</div></div>'])->fileInput(['accept'=>"image/png,image/jpg,image/jpeg", 'onchange'=>"showImg(event)",'class' => 'ml-3'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('thumb'))) ?>
-
-            <div class="form-group">
-                <label class="control-label has-star col-sm-3"></label>
-                <div class="col-sm-9 checkbox_element pl-0 l-3">
-                    <?php if (!empty($img)) { ?>
-                        <img id="show_img" src="<?=$img?>" height="200" width="350">
-                    <?php } else { ?>
-                        <img id="show_img" src="https://via.placeholder.com/200x350.png" height="200" width="350">
-                    <?php } ?>
-                </div>
-            </div>
+            ])->checkbox(['label' => 'Trận đấu hot nhất'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('hot_match'))) ?>
 
             <?= $form->field($model, 'sort')->textInput()->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('sort'))) ?>
 

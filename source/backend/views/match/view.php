@@ -87,23 +87,28 @@ $this->params['breadcrumb'] = [
 					},
 			],
 			[
-				'attribute' => 'url',
+				'attribute' => 'url1',
 					'value' => function ($data) {
-						return $data['url'];
+						return $data['url1'];
 					},
 			],
+            [
+                'attribute' => 'url2',
+                'value' => function ($data) {
+                    return $data['url2'];
+                },
+            ],
+            [
+                'attribute' => 'url3',
+                'value' => function ($data) {
+                    return $data['url3'];
+                },
+            ],
 			[
                 'attribute' => 'status',
                 'format' => 'raw',
                 'value' => function ($data) {
                     return $data['status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
-                },
-			],
-			[
-				'attribute' => 'thumb',
-                'format' => ['image',['width'=>'350','height'=>'200']],
-                'value' => function ($data) {
-                    return Utility::getUrlMatch($data["thumb"]);
                 },
 			],
 			[
@@ -137,17 +142,17 @@ $this->params['breadcrumb'] = [
 					},
 			],
 			[
-				'attribute' => 'url_status',
+				'attribute' => 'feature_match',
                 'format' => 'raw',
                 'value' => function ($data) {
-                    return $data['url_status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+                    return $data['feature_match']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
                 },
 			],
 			[
-				'attribute' => 'hot',
+				'attribute' => 'hot_match',
                 'format' => 'raw',
                 'value' => function ($data) {
-                    return $data['hot']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+                    return $data['hot_match']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
                 },
 			],
         ],

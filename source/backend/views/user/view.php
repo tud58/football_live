@@ -92,9 +92,9 @@ $this->params['breadcrumb'] = [
 					},
 			],
 			[
-				'attribute' => 'created_time',
+				'attribute' => 'created_at',
 					'value' => function ($data) {
-						return $data['created_time'];
+						return $data['created_at'];
 					},
 			],
 			[
@@ -104,9 +104,9 @@ $this->params['breadcrumb'] = [
 					},
 			],
 			[
-				'attribute' => 'updated_time',
+				'attribute' => 'updated_at',
 					'value' => function ($data) {
-						return $data['updated_time'];
+						return $data['updated_at'];
 					},
 			],
         ],

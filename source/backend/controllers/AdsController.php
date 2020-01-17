@@ -170,8 +170,12 @@ class AdsController extends Controller
 
         try {
             $model = $this->findModel($obj_id);
-            if ($obj_type == 'delete') {
-                $model->deleted = 1;
+            if (in_array($obj_type,['status','deleted'])) {
+                $status = !empty($model->$obj_type)?$model->$obj_type:0;
+                $model->$obj_type = $status==1?0:1;
+                $model->updated_by = Yii::$app->user->id;
+                $model->updated_time = date('Y-m-d H:i:s');
+
                 $model->save(false);
             } else {
                 throw new \Exception("{obj_type} invalid");

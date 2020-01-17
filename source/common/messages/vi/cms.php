@@ -474,4 +474,9 @@ return array(
 	'Url Status' => 'Url Status', 
 	'Slug' => 'Slug', 
 	'Hot' => 'Hot', 
+	'Url1' => 'Url1', 
+	'Feature Match' => 'Feature Match', 
+	'Hot Match' => 'Hot Match', 
+	'Url2' => 'Url2', 
+	'Url3' => 'Url3', 
 );

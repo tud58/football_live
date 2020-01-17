@@ -59,22 +59,24 @@ class MatchSearch extends Match
             'start_time' => $this->start_time,
             'stadium_id' => $this->stadium_id,
             'status' => $this->status,
-            'deleted' => $this->deleted,
+            'deleted' => 0,
             'created_by' => $this->created_by,
             'created_time' => $this->created_time,
             'updated_by' => $this->updated_by,
             'updated_time' => $this->updated_time,
             'sort' => $this->sort,
-            'url_status' => $this->url_status,
-            'hot' => $this->hot,
+            'feature_match' => $this->feature_match,
+            'hot_match' => $this->hot_match,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'url', $this->url])
+            ->andFilterWhere(['like', 'url1', $this->url1])
+            ->andFilterWhere(['like', 'url2', $this->url2])
+            ->andFilterWhere(['like', 'url3', $this->url3])
             ->andFilterWhere(['like', 'thumb', $this->thumb])
             ->andFilterWhere(['like', 'slug', $this->slug]);
 
-        $query->orderBy(['hot'=>SORT_DESC,'sort'=>SORT_DESC,'start_time'=>SORT_DESC]);
+        $query->orderBy(['hot_match'=>SORT_DESC,'feature_match'=>SORT_DESC,'sort'=>SORT_DESC,'start_time'=>SORT_ASC]);
 
         return $dataProvider;
     }

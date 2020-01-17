@@ -101,16 +101,12 @@ class MatchController extends Controller
             $model->created_by = Yii::$app->user->id;
             $model->updated_time = date('Y-m-d H:i:s');
             $model->updated_by = Yii::$app->user->id;
-            if ($model->save()) {
-                $file = UploadedFile::getInstance($model, 'thumb');
-                if (!empty($file)) {
-                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . $file->extension);
-//                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension);
-//                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'matchs/' . $model->id . '.' . $file->extension, 100);
 
-                    $model->thumb = $model->id . '.' . $file->extension;
-                }
-                $model->save(false);
+            if ($request['hot_match']==1) {
+                Match::updateAll(['hot_match'=>0],['status'=>1,'deleted'=>0,'hot_match'=>1]);
+            }
+
+            if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -149,8 +145,6 @@ class MatchController extends Controller
         $leagues = ArrayHelper::map(League::findAll(['status'=>1, 'deleted'=>0]),'id','name');
         $clubs = ArrayHelper::map(Club::findAll(['status'=>1, 'deleted'=>0]),'id','name');
         $stadiums = ArrayHelper::map(Stadium::findAll(['status'=>1, 'deleted'=>0]),'id','name');
-        $img = Utility::getUrlMatch($id);
-        $thumb = $model->thumb;
 
         if ($model->load(Yii::$app->request->post())) {
             $request = Yii::$app->request->post('Match');
@@ -160,17 +154,10 @@ class MatchController extends Controller
             $model->slug = $slug;
             $model->updated_time = date('Y-m-d H:i:s');
             $model->updated_by = Yii::$app->user->id;
-            $model->thumb = $thumb;
+            if ($request['hot_match']==1) {
+                Match::updateAll(['hot_match'=>0],['status'=>1,'deleted'=>0,'hot_match'=>1]);
+            }
             if ($model->save()) {
-                $file = UploadedFile::getInstance($model, 'thumb');
-                if (!empty($file)) {
-                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . $file->extension);
-//                    $file->saveAs(PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension);
-//                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'matchs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'matchs/' . $model->id . '.' . $file->extension, 100);
-
-                    $model->thumb = $model->id . '.' . $file->extension;
-                }
-                $model->save(false);
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
             Yii::$app->session->setFlash('error', json_encode($model->getErrors(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -183,7 +170,6 @@ class MatchController extends Controller
             'leagues' => $leagues,
             'clubs' => $clubs,
             'stadiums' => $stadiums,
-            'img' => $img,
         ]);
     }
 
@@ -202,12 +188,18 @@ class MatchController extends Controller
 
         try {
             $model = $this->findModel($obj_id);
-            if ($obj_type == 'delete') {
-                $model->deleted = 1;
+
+            if (in_array($obj_type,['status','feature_match','hot_match','deleted'])) {
+                $status = !empty($model->$obj_type)?$model->$obj_type:0;
+                $model->$obj_type = $status==1?0:1;
+                $model->updated_by = Yii::$app->user->id;
+                $model->updated_time = date('Y-m-d H:i:s');
+                if ($obj_type=='hot_match' && $status==0) {
+                    Match::updateAll(['hot_match'=>0],['status'=>1,'deleted'=>0,'hot_match'=>1]);
+                }
                 $model->save(false);
-            } else {
-                throw new \Exception("{obj_type} invalid");
             }
+
             echo json_encode(['status' => 1, 'message' => Yii::t('cms', 'Save Success')]);
             exit;
         } catch (\Exception $e) {

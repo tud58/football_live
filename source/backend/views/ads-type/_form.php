@@ -22,11 +22,13 @@ use kartik\form\ActiveForm;
             ]); ?>
 
 
-            <?php if (Yii::$app->session->hasFlash('error')) { ?>                <div class="alert alert-danger">
+            <?php if (Yii::$app->session->hasFlash('error')) { ?>
+                <div class="alert alert-danger">
                     <button class="close" data-close="alert"></button>
                     <span><?php echo Yii::$app->session->getFlash('error') ?></span>
                 </div>
-            <?php } elseif (Yii::$app->session->hasFlash('success')) { ?>                <div class="alert alert-success">
+            <?php } elseif (Yii::$app->session->hasFlash('success')) { ?>
+                <div class="alert alert-success">
                     <button class="close" data-close="alert"></button>
                     <span><?php echo Yii::$app->session->getFlash('success') ?></span>
                 </div>

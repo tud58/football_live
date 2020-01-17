@@ -22,11 +22,13 @@ use kartik\form\ActiveForm;
             ]); ?>
 
 
-            <?php if (Yii::$app->session->hasFlash('error')) { ?>                <div class="alert alert-danger">
+            <?php if (Yii::$app->session->hasFlash('error')) { ?>
+                <div class="alert alert-danger">
                     <button class="close" data-close="alert"></button>
                     <span><?php echo Yii::$app->session->getFlash('error') ?></span>
                 </div>
-            <?php } elseif (Yii::$app->session->hasFlash('success')) { ?>                <div class="alert alert-success">
+            <?php } elseif (Yii::$app->session->hasFlash('success')) { ?>
+                <div class="alert alert-success">
                     <button class="close" data-close="alert"></button>
                     <span><?php echo Yii::$app->session->getFlash('success') ?></span>
                 </div>
@@ -37,7 +39,6 @@ use kartik\form\ActiveForm;
             <?= $form->field($model, 'description')->textInput(['maxlength' => 255])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('description'))) ?>
 
             <?= $form->field($model, 'ads_location_id')->dropDownList($ads_location,['prompt'=>'Chọn vị trí đặt quảng cáo'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('ads_location_id'))) ?>
-            <?= $form->field($model, 'type')->dropDownList($ads_type,['prompt'=>'Chọn loại quảng cáo'])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('type'))) ?>
 
             <?= $form->field($model, 'url')->textInput(['maxlength' => 500])->label('<i class="fa fa-angle-double-right" aria-hidden="true"></i> ' . Yii::t('cms', $model->getAttributeLabel('url'))) ?>
 

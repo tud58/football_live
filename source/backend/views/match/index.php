@@ -108,37 +108,67 @@ $this->params['breadcrumb'] = [
 			'attribute' => 'status',
             'format' => 'raw',
             'value' => function ($data) {
-                return $data['status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+                $class = $data->status == 1 ? 'btn btn-success btn-xs btn-app':'btn btn-danger btn-xs btn-app';
+                $obj_id = $data->id;
+                $obj_type = 'status';
+                $message = Yii::t('cms', 'Are you sure update this item') . '?';
+                $url = Url::toRoute(['change-status-object']);
+                return Html::a('<span class="glyphicon glyphicon-ok-sign"></span>', 'javascript:void(0);', [
+                    'title' => Yii::t('cms', 'Status'),
+                    'class'=>$class,
+                    'data-pjax' => 'w0',
+                    'onclick' => 'changeStatusItem("' . $obj_id . '", "' . $obj_type . '", "' . $message . '", "' . $url . '")',
+                ]);
             },
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
+            [
+                'attribute' => 'hot_match',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    $class = $data->hot_match == 1 ? 'btn btn-success btn-xs btn-app':'btn btn-danger btn-xs btn-app';
+                    $obj_id = $data->id;
+                    $obj_type = 'hot_match';
+                    $message = Yii::t('cms', 'Are you sure update this item') . '?';
+                    $url = Url::toRoute(['change-status-object']);
+                    return Html::a('<span class="glyphicon glyphicon-ok-sign"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('cms', 'Hot Match'),
+                        'class'=>$class,
+                        'data-pjax' => 'w0',
+                        'onclick' => 'changeStatusItem("' . $obj_id . '", "' . $obj_type . '", "' . $message . '", "' . $url . '")',
+                    ]);
+                },
+                'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
+                'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+            ],
 		[
-			'attribute' => 'sort',
-			'value' => function ($data) { 
-				return $data['sort'];
-			},
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
-		[
-			'attribute' => 'url_status',
+			'attribute' => 'feature_match',
             'format' => 'raw',
             'value' => function ($data) {
-                return $data['url_status']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
+                $class = $data->feature_match == 1 ? 'btn btn-success btn-xs btn-app':'btn btn-danger btn-xs btn-app';
+                $obj_id = $data->id;
+                $obj_type = 'feature_match';
+                $message = Yii::t('cms', 'Are you sure update this item') . '?';
+                $url = Url::toRoute(['change-status-object']);
+                return Html::a('<span class="glyphicon glyphicon-ok-sign"></span>', 'javascript:void(0);', [
+                    'title' => Yii::t('cms', 'Feature Match'),
+                    'class'=>$class,
+                    'data-pjax' => 'w0',
+                    'onclick' => 'changeStatusItem("' . $obj_id . '", "' . $obj_type . '", "' . $message . '", "' . $url . '")',
+                ]);
             },
 			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
 			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
 		],
-		[
-			'attribute' => 'hot',
-            'format' => 'raw',
-            'value' => function ($data) {
-                return $data['hot']==1?Utility::showLabel('success','Active'):Utility::showLabel('danger','DeActive');
-            },
-			'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
-			'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-		],
+            [
+                'attribute' => 'sort',
+                'value' => function ($data) {
+                    return $data['sort'];
+                },
+                'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;', 'class' => 'sortable'],
+                'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
@@ -163,7 +193,7 @@ $this->params['breadcrumb'] = [
                     },
                     'delete' => function ($url, $model, $key) {
                         $obj_id = $model->primaryKey;
-                        $obj_type = 'delete';
+                        $obj_type = 'deleted';
                         $message = Yii::t('cms', 'Are you sure delete this item') . '?';
                         $url = Url::toRoute(['change-status-object']);
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
