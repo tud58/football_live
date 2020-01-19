@@ -9,6 +9,8 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use frontend\models\Ads;
+use common\Utility;
 
 AppAsset::register($this);
 ?>
@@ -34,22 +36,34 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div class="BannerStickyLeft hidden-sm-down" style="top: 100px;">
-    <div class="BannerStickyLeft_content" style="position: fixed;">
+<?php
+    $ads_fix_left = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>8]);
+    $ads_fix_right = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>9]);
+    $ads_fix_down_left = Ads::findOne(['status'=>1,'deleted'=>0,'ads_location_id'=>10]);
+    $ads_fix_down_right = Ads::findOne(['status'=>1,'deleted'=>0,'ads_location_id'=>11]);
+    $ads_top_nav = Ads::findOne(['status'=>1,'deleted'=>0,'ads_location_id'=>1]);
+?>
 
-        <a href="https://11met.live/uploads/banner/yo88-float-left.html" target="_blank" class="d-block mb-10">
-            <img width="120px" class="img-fluid" src="https://i.imgur.com/U45AKcZ.gif" title="game bài đổi thưởng" alt="game bài đổi thưởng nhiều người chơi nhất">
-        </a>
-        <a href="https://11met.live/uploads/banner/go88-B2-float-left.html" target="_blank" class="d-block mb-10">
-            <img width="120px" class="img-fluid" src="https://i.imgur.com/6pmzNRs.gif" title="game bài đổi thưởng go88" alt="game bài đổi thưởng go88">
-        </a>
+<?php if (!empty($ads_fix_left)) { ?>
+    <div class="ads BannerSticky BannerStickyLeft hidden-sm-down" style="top: 200px;">
+        <div class="BannerStickyLeft_content" style="position: fixed;">
+        <?php foreach ($ads_fix_left as $afl) { ?>
+            <a href="<?=$afl->url?>" target="_blank" class="d-block mb-10">
+                <img width="120px" class="img-fluid" src="<?=Utility::getUrlAds($afl->id)?>" title="<?=$afl->title?>" alt="<?=$afl->description?>">
+            </a>
+        <?php } ?>
+        </div>
     </div>
-</div>
+<?php } ?>
 
 <div class="wrap">
+    <?php if (!empty($ads_top_nav)) { ?>
     <div class="container ads ads-top-nav" style="padding: 0;">
-        <img src="/img/VFez35m.gif" style="width: 100%">
+        <a class="" href="<?=$ads_top_nav->url?>">
+            <img src="<?=Utility::getUrlAds($ads_top_nav->id)?>" style="width: 100%">
+        </a>
     </div>
+    <?php } ?>
     <div class="logo" style="width: 100%; height: 50px; text-align: center;">
         <a class="" href="/index.php" style="font-size: 25px; font-weight: bold; text-decoration: none; line-height: 50px;">FootBall Live</a>
     </div>
@@ -66,22 +80,22 @@ AppAsset::register($this);
             <div id="w0-collapse" class="collapse navbar-collapse">
                 <ul id="w1" class="navbar-nav nav" style="text-align: center; float: none;">
                     <li class="col-sm-2">
-                        <a href="/">Lịch trực tiếp</a>
+                        <a href="/"><i class="glyphicon glyphicon-th-list mr-2"></i> Lịch trực tiếp</a>
                     </li>
                     <li class="col-sm-2">
-                        <a href="/">Tỉ số</a>
+                        <a href="/"><i class="glyphicon glyphicon-list-alt mr-2"></i> Tỉ số</a>
                     </li>
                     <li class="col-sm-2">
-                        <a href="/">Tin tức</a>
+                        <a href="/"><i class="glyphicon glyphicon-file mr-2"></i> Tin tức</a>
                     </li>
                     <li class="col-sm-2">
-                        <a href="/">Video bàn thắng</a>
+                        <a href="/"><i class="glyphicon glyphicon-facetime-video mr-2"></i> Video bàn thắng</a>
                     </li>
                     <li class="col-sm-2">
-                        <a href="/">Soi kèo</a>
+                        <a href="/"><i class="glyphicon glyphicon-edit mr-2"></i> Soi kèo</a>
                     </li>
                     <li class="col-sm-2">
-                        <a href="/">Link Sopcast</a>
+                        <a href="/"><i class="glyphicon glyphicon-globe mr-2"></i> Link Sopcast</a>
                     </li>
                 </ul>
             </div>
@@ -97,36 +111,39 @@ AppAsset::register($this);
     </div>
 </div>
 
-<div class="BannerStickyRight hidden-sm-down" style="top: 100px;">
+<?php if (!empty($ads_fix_right)) { ?>
+<div class="ads BannerSticky BannerStickyRight hidden-sm-down" style="top: 200px;">
     <div class="BannerStickyRight_content" style="position: fixed;">
-
-        <a href="https://11met.live/uploads/banner/nhatvip-B3-float-right.html" target="_blank" class="d-block mb-10">
-            <img width="120px" class="img-fluid" src="https://i.imgur.com/W7Sb6eB.gif" title="game bài đổi thưởng go88" alt="game bài đổi thưởng go88">
-        </a>
-        <a href="https://11met.live/uploads/banner/zbet-B4-float-right.html" target="_blank" class="d-block mb-10">
-            <img width="120px" class="img-fluid" src="https://i.imgur.com/5pp2K7F.gif" alt="banner">
-        </a>
+        <?php foreach ($ads_fix_right as $afr) { ?>
+            <a href="<?=$afr->url?>" target="_blank" class="d-block mb-10">
+                <img width="120px" class="img-fluid" src="<?=Utility::getUrlAds($afr->id)?>" title="<?=$afr->title?>" alt="<?=$afr->description?>">
+            </a>
+        <?php } ?>
     </div>
 </div>
+<?php } ?>
 
-<div class="BannerFixed BannerFixedLeft ad_c1 hidden-sm-down">
+<?php if (!empty($ads_fix_down_left)) { ?>
+<div class="ads BannerFixed BannerFixedLeft ad_c1 hidden-sm-down">
     <div class="BannerFixedLeft_content">
-
-        <a href="https://11met.live/uploads/banner/C1bong99.html" target="_blank" class="d-block mb-10">
-            <img width="360px" class="img-fluid" src="https://i.imgur.com/9BugJH4.gif" alt="banner">
+        <a href="<?=$ads_fix_down_left->url?>" target="_blank" class="d-block mb-10">
+            <img width="360px" class="img-fluid" src="<?=Utility::getUrlAds($ads_fix_down_left->id)?>" alt="banner">
         </a>
-        <div class="close-banner"><i class="glyphicon glyphicon-remove-sign"></i></div>
+        <a class="close-banner" onclick="closeBanner('BannerFixedLeft')"><i class="glyphicon glyphicon-remove-sign"></i></a>
     </div>
 </div>
-<div class="BannerFixed BannerFixedRight ad_c2 hidden-sm-down">
+<?php } ?>
+<?php if (!empty($ads_fix_down_right)) { ?>
+<div class="ads BannerFixed BannerFixedRight ad_c2 hidden-sm-down">
     <div class="BannerFixedRight_content">
 
-        <a href="https://11met.live/uploads/banner/C28live.html" target="_blank" class="d-block mb-10">
-            <img width="360px" class="img-fluid" src="https://i.imgur.com/9BugJH4.gif" alt="banner">
+        <a href="<?=$ads_fix_down_right->url?>" target="_blank" class="d-block mb-10">
+            <img width="360px" class="img-fluid" src="<?=Utility::getUrlAds($ads_fix_down_right->id)?>" alt="banner">
         </a>
-        <div class="close-banner"><i class="glyphicon glyphicon-remove-sign"></i></div>
+        <a class="close-banner" onclick="closeBanner('BannerFixedRight')"><i class="glyphicon glyphicon-remove-sign"></i></a>
     </div>
 </div>
+<?php } ?>
 
 <?php $this->endBody() ?>
 </body>

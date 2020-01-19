@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use frontend\models\Ads;
 use frontend\models\Match;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -29,7 +30,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'load-match'],
+                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -41,18 +42,12 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                    [
-                        'actions' => ['load-match'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
-                    'load-match' => ['post'],
                 ],
             ],
         ];
@@ -81,11 +76,24 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $ads_down_nav = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>2]);
+        $ads_double = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>3]);
+        $ads_down_double = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>4]);
+        $ads_down_hot = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>7]);
+        $ads_left_content = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>5]);
+        $ads_right_content = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>6]);
+        return $this->render('index',[
+            'ads_down_nav' => $ads_down_nav,
+            'ads_double' => $ads_double,
+            'ads_down_double' => $ads_down_double,
+            'ads_down_hot' => $ads_down_hot,
+            'ads_left_content' => $ads_left_content,
+            'ads_right_content' => $ads_right_content,
+        ]);
     }
 
     public function actionLive()
-    {die;
+    {
         return $this->render('live');
     }
 

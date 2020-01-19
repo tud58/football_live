@@ -6,7 +6,7 @@
  * Time: 08:34 AM
  */
 
-if ($_SERVER['HTTP_HOST'] == 'cms.football.abc') {
+if (in_array($_SERVER['HTTP_HOST'],['cms.football.abc','football.abc'])) {
     defined('PATH_STORAGE') or define('PATH_STORAGE', "F:/MyWork/football_live_storage/");
     defined('URL_STORAGE') or define('URL_STORAGE', "http://static.football.abc/");
 } else {

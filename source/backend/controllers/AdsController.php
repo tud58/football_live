@@ -91,7 +91,7 @@ class AdsController extends Controller
             if ($model->save()) {
                 $file = UploadedFile::getInstance($model, 'img');
                 if (!empty($file)) {
-                    $file->saveAs(PATH_STORAGE . 'ads/' . $model->id . $file->extension);
+                    $file->saveAs(PATH_STORAGE . 'ads/' . $model->id. '.' . $file->extension);
 //                    $file->saveAs(PATH_STORAGE . 'ads/' . $model->id . '_real.' . $file->extension);
 //                    Utility::resize_crop_image(300, 100, PATH_STORAGE . 'ads/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'ads/' . $model->id . '.' . $file->extension, 100);
 
@@ -133,7 +133,7 @@ class AdsController extends Controller
             if ($model->save()) {
                 $file = UploadedFile::getInstance($model, 'img');
                 if (!empty($file)) {
-                    $file->saveAs(PATH_STORAGE.'ads/' . $model->id . $file->extension);
+                    $file->saveAs(PATH_STORAGE.'ads/' . $model->id. '.' . $file->extension);
 //                    $file->saveAs(PATH_STORAGE.'ads/' . $model->id . '_real.' . $file->extension);
 //                    Utility::resize_crop_image(300,100, PATH_STORAGE.'ads/' . $model->id . '_real.' . $file->extension, PATH_STORAGE.'ads/' . $model->id . '.' . $file->extension,100);
 

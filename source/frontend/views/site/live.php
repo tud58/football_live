@@ -4,11 +4,13 @@
 
 $this->title = 'FootBall Live';
 ?>
+<script type="text/javascript" src="https://cdn.jwplayer.com/libraries/gaqdEdUp.js"></script>
+<script type="text/javascript">jwplayer.key = 'ypdL3Acgwp4Uh2/LDE9dYh3W/EPwDMuA2yid4ytssfI=';</script>
 <div class="site-index">
     <div class="body-content">
 
         <div class="col-sm-12">
-            <div class="ads-down-nav" style="width: 100%">
+            <div class="ads ads-down-nav" style="width: 100%">
                 <div class="row" style="margin-bottom: 10px">
                     <img src="/img/702qa8Z.gif" width="100%">
                 </div>
@@ -29,14 +31,19 @@ $this->title = 'FootBall Live';
                 </div>
             </div>
             <div class="list-view" style="width: 100%">
-                <div class="ads ads-left" style="float: left; width: 15%; margin-left: -15px;">
+                <div class="ads-left" style="float: left; width: 15%; margin-left: -15px;">
                     <img src="/img/QNoeP8O.gif" style="width: 100%;">
                 </div>
                 <div class="main-content" style="width: 65%; float: left; margin-left: 15px">
-                    <div class="box-hot" style="background-image: url('/img/img1.png'); width: 100%; min-height: 450px;">
+                    <div class="box-hot" style="width: 100%; min-height: 450px;">
                         <div id="myElement1" class="element"></div>
+                        <div class="list-link">
+                            <button class="btn btn-primary" href="javascript:void(0)" onclick="loadVideo('https://75c5cf3f.vws.vegacdn.vn/cliptv_live/vtv1hd.stream_level4/playlist.m3u8')">Link 1</button>
+                            <button class="btn btn-primary" href="javascript:void(0)" onclick="loadVideo('https://75c5cf3f.vws.vegacdn.vn/cliptv_live/vtv2hd.stream_level4/playlist.m3u8')">Link 2</button>
+                            <button class="btn btn-primary" href="javascript:void(0)" onclick="loadVideo('https://75c5cf3f.vws.vegacdn.vn/cliptv_live/vtv3hd.stream_level4/playlist.m3u8')">Link 3</button>
+                        </div>
                     </div>
-                    <div class="ads ads-content">
+                    <div class="ads-content">
                         <img src="/img/jcTb0Po.gif" style="width: 100%; margin-top: 10px;">
                     </div>
                     <div class="list-match" style="margin-top: 20px">
@@ -411,7 +418,7 @@ $this->title = 'FootBall Live';
                             </div>
                         </div>
                     </div>
-                    <div class="ads ads-content" style="margin-top: 50px">
+                    <div class="ads-content" style="margin-top: 50px">
                         <img src="/img/jcTb0Po.gif" style="width: 100%; margin-top: 10px;">
                     </div>
                     <div class="list-match" style="margin-top: 20px">
@@ -786,7 +793,7 @@ $this->title = 'FootBall Live';
                             </div>
                         </div>
                     </div>
-                    <div class="ads ads-content" style="margin-top: 50px">
+                    <div class="ads-content" style="margin-top: 50px">
                         <img src="/img/jcTb0Po.gif" style="width: 100%; margin-top: 10px;">
                     </div>
                     <div class="list-match" style="margin-top: 20px">
@@ -1161,7 +1168,7 @@ $this->title = 'FootBall Live';
                             </div>
                         </div>
                     </div>
-                    <div class="ads ads-content" style="margin-top: 50px">
+                    <div class="ads-content" style="margin-top: 50px">
                         <img src="/img/jcTb0Po.gif" style="width: 100%; margin-top: 10px;">
                     </div>
                     <div class="list-match" style="margin-top: 20px">
@@ -1536,11 +1543,11 @@ $this->title = 'FootBall Live';
                             </div>
                         </div>
                     </div>
-                    <div class="ads ads-content" style="margin-top: 50px">
+                    <div class="ads-content" style="margin-top: 50px">
                         <img src="/img/jcTb0Po.gif" style="width: 100%; margin-top: 10px;">
                     </div>
                 </div>
-                <div class="ads ads-right" style="float: right; width: 20%; margin-right: -15px;">
+                <div class="ads-right" style="float: right; width: 20%; margin-right: -15px;">
                     <img src="/img/FGzKDUy.gif" style="margin-bottom: 10px; width: 100%;">
                     <img src="/img/I0Wsqxh.gif" style="margin-bottom: 10px; width: 100%;">
                     <img src="/img/XBbZSpQ.gif" style="margin-bottom: 10px; width: 100%;">
@@ -1556,7 +1563,7 @@ $this->title = 'FootBall Live';
     jwplayer("myElement1").setup({
         image: "https://content.jwplatform.com/thumbs/xJ7Wcodt-720.jpg",
         aspectratio: "16:9",
-        width: '50%',
+        width: '100%',
         aspectratio: '16:9',
         autostart: true,
         file : 'https://75c5cf3f.vws.vegacdn.vn/cliptv_live/vtv3hd.stream_level4/playlist.m3u8',

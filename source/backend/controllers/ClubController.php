@@ -94,7 +94,7 @@ class ClubController extends Controller
             if ($model->save()) {
                 $file = UploadedFile::getInstance($model, 'logo');
                 if (!empty($file)) {
-                    $file->saveAs(PATH_STORAGE . 'clubs/' . $model->id . $file->extension);
+                    $file->saveAs(PATH_STORAGE . 'clubs/' . $model->id. '.' . $file->extension);
 //                    $file->saveAs(PATH_STORAGE . 'clubs/' . $model->id . '_real.' . $file->extension);
 //                    Utility::resize_crop_image(200, 200, PATH_STORAGE . 'clubs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE . 'clubs/' . $model->id . '.' . $file->extension, 100);
 
@@ -156,7 +156,7 @@ class ClubController extends Controller
             if ($model->save()) {
                 $file = UploadedFile::getInstance($model, 'logo');
                 if (!empty($file)) {
-                    $file->saveAs(PATH_STORAGE.'clubs/' . $model->id . $file->extension);
+                    $file->saveAs(PATH_STORAGE.'clubs/' . $model->id. '.' . $file->extension);
 //                    $file->saveAs(PATH_STORAGE.'clubs/' . $model->id . '_real.' . $file->extension);
 //                    Utility::resize_crop_image(200,200, PATH_STORAGE.'clubs/' . $model->id . '_real.' . $file->extension, PATH_STORAGE.'clubs/' . $model->id . '.' . $file->extension,100);
 

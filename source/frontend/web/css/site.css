@@ -132,15 +132,6 @@ a.desc:after {
     border: none;
 }
 
-@media(max-width:767px) {
-    .nav li > form > button.logout {
-        display:block;
-        text-align: left;
-        width: 100%;
-        padding: 10px 15px;
-    }
-}
-
 .nav > li > form > button.logout:focus,
 .nav > li > form > button.logout:hover {
     text-decoration: none;
@@ -447,12 +438,13 @@ a.desc:after {
 .BannerStickyLeft {
     position: absolute;
     top: 0;
-    left: 200px;
+    left: 0;
+    z-index: 1;
 }
 
 .BannerStickyRight {
     position: absolute;
-    right: 200px;
+    right: 120px;
 }
 
 .mb-10 {
@@ -460,6 +452,131 @@ a.desc:after {
 }
 .d-block {
     display: block!important;
+}
+
+.box-slide-hot {
+    background-color: #181818;
+}
+
+.box-hot-info {
+    color: #fff;
+    text-align: left;
+    padding: 3px 10px 0;
+}
+
+.box-hot-info .name-match {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.box-hot-info .name-league {
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.box-hot-main-info {
+    width: 100%;
+    float: left;
+    margin-top: 60px;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.box-hot-main-info .name-match {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+
+.button-live {
+    width: 100%;
+    float: left;
+    margin-top: -32px;
+    color: #fff;
+    padding: 10px 5px;
+}
+
+.list-link {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.list-link button {
+    margin-right: 20px;
+}
+
+@media(max-width:767px) {
+    .nav li > form > button.logout {
+        display:block;
+        text-align: left;
+        width: 100%;
+        padding: 10px 15px;
+    }
+
+    .BannerSticky, .ads-left, .ads-right {
+        display: none;
+    }
+
+    .main-content {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .home-flag img, .guest-flag img {
+        width: 75% !important;
+    }
+
+    .home-flag, .guest-flag {
+        margin-top: 55px !important;
+    }
+
+    .main-content .box-hot-only {
+        min-height: 250px !important;
+    }
+
+    .box-hot .hot-match-info {
+        margin-top: 55px !important;
+    }
+
+    .tv-box-5 .c1 {
+        font-size: 12px !important;
+    }
+
+    .tv-box-5 .c2 {
+        font-size: 30px !important;
+    }
+
+    .tv-box-5 .c3 {
+        font-size: 13px !important;
+    }
+
+    .tv-box-5 {
+        padding-top: 0 !important;
+    }
+
+    .box-hot-main-info {
+        margin-top: 10px !important;
+    }
+
+    .box-hot-main-info .live {
+        margin-bottom: 3px !important;
+    }
+
+    .box-hot-main-info .name-match {
+        font-size: 17px;
+    }
+
+    .swiper-slide {
+        width: 64% !important;
+    }
 }
 
 
