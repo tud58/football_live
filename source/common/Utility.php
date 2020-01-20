@@ -223,6 +223,63 @@ class Utility {
         return $time_ago;
     }
 
+    public static function time_friendly( $timestamp = 0, $now = 0 ) {
+
+        // Set up our variables.
+        $minute_in_seconds = 60;
+        $hour_in_seconds   = $minute_in_seconds * 60;
+        $day_in_seconds    = $hour_in_seconds * 24;
+        $week_in_seconds   = $day_in_seconds * 7;
+        $month_in_seconds  = $day_in_seconds * 30;
+        $year_in_seconds   = $day_in_seconds * 365;
+
+        // Get the current time if a reference point has not been provided.
+        if ( 0 === $now ) {
+            $now = time();
+        }
+
+        // Make sure the timestamp to check is in the past.
+        $time_ago = '';
+        $timestamp = strtotime($timestamp);
+        if ( $timestamp >= $now ) {
+            return 'Đang diễn ra';
+        } else {
+            // Calculate the time difference between the current time reference point and the timestamp we're comparing.
+            $time_difference = (int) abs( $now - $timestamp );
+
+            // Calculate the time ago using the smallest applicable unit.
+            if ( $time_difference < $hour_in_seconds ) {
+
+                $difference_value = round( $time_difference / $minute_in_seconds );
+                $difference_label = 'phút';
+
+            } elseif ( $time_difference < $day_in_seconds ) {
+
+                $difference_value = round( $time_difference / $hour_in_seconds );
+                $difference_label = 'giờ';
+
+            } elseif ( $time_difference < $week_in_seconds ) {
+
+                $difference_value = round( $time_difference / $day_in_seconds );
+                $difference_label = 'ngày';
+
+            }
+
+            if ( $difference_value <= 1 ) {
+                $time_ago = sprintf( 'còn 1 %s nữa',
+                    $difference_label
+                );
+            } else {
+                $time_ago = sprintf( 'còn %s %s nữa',
+                    $difference_value,
+                    $difference_label
+                );
+            }
+        }
+
+        return $time_ago;
+    }
+
     public static function check_phone_number($phone)
     {
         $return = false;
@@ -262,9 +319,9 @@ class Utility {
     public static function format_time_vn($time=null)
     {
         if (empty($time)) {
-            $return = date('H:i:s');
+            $return = date('H:i');
         } else {
-            $return = date('H:i:s',strtotime($time));
+            $return = date('H:i',strtotime($time));
         }
 
         return $return;
@@ -273,9 +330,9 @@ class Utility {
     public static function format_date_vn($time=null)
     {
         if (empty($time)) {
-            $return = date('d/m/Y');
+            $return = date('d/m');
         } else {
-            $return = date('d/m/Y',strtotime($time));
+            $return = date('d/m',strtotime($time));
         }
 
         return $return;
@@ -290,6 +347,34 @@ class Utility {
         }
 
         return $return;
+    }
+
+    public static function encodeMatch($match_id)
+    {
+        $ALPHABET = '0123456789zxcvbnmasdfghjklqwertyuiopZXCVBNMASDFGHJKLQWERTYUIOP';
+        $base = strlen($ALPHABET);
+        $chars = '';
+        $match_id += 1236547890;
+        while ($match_id > 0) {
+            $index = $match_id % $base;
+            $item = $ALPHABET[$index];
+            $chars = $item.$chars;
+            $match_id = ($match_id-$index) / $base;
+        }
+        return $chars;
+    }
+
+    public static function decodeMatch($code) {
+        $ALPHABET = '0123456789zxcvbnmasdfghjklqwertyuiopZXCVBNMASDFGHJKLQWERTYUIOP';
+        $base = strlen($ALPHABET);
+        $num = 0;
+        for ($i = 0; $i < strlen($code); $i++) {
+            $idx = strpos($ALPHABET, $code[$i]);
+            if ($idx >= 0) {
+                $num = $num * $base + $idx;
+            }
+        }
+        return $num-1236547890;
     }
 
 }

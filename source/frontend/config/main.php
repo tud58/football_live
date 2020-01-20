@@ -63,7 +63,7 @@ return [
                 ['pattern' => 'lien-he', 'route' => 'site/contact'],
 
 
-                ['pattern' => 'resource-report/show-chart/<resourceId:\d+>', 'route' => 'resource-report/show-chart'],
+                ['pattern' => 'truc-tiep/<code:.*?>', 'route' => 'site/live'],
                 ['pattern' => 'resource-report/get-stats/<resourceId:\d+>', 'route' => 'resource-report/get-stats'],
 
                 /** COMMON */

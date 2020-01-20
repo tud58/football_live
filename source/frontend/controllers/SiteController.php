@@ -1,12 +1,16 @@
 <?php
 namespace frontend\controllers;
 
+use common\Utility;
 use frontend\models\Ads;
+use frontend\models\Club;
+use frontend\models\League;
 use frontend\models\Match;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -82,6 +86,14 @@ class SiteController extends Controller
         $ads_down_hot = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>7]);
         $ads_left_content = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>5]);
         $ads_right_content = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>6]);
+
+        $match_hot = Match::findOne(['status'=>1, 'deleted'=>0, 'hot_match'=>1]);
+        $match_feature = Match::find()->where(['status'=>1, 'deleted'=>0, 'feature_match'=>1])->limit(20)->all();
+        $list_match = Match::find()->where(['status'=>1, 'deleted'=>0])->limit(100)->all();
+
+        $clubs = ArrayHelper::map(Club::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $leagues = ArrayHelper::map(League::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+
         return $this->render('index',[
             'ads_down_nav' => $ads_down_nav,
             'ads_double' => $ads_double,
@@ -89,12 +101,42 @@ class SiteController extends Controller
             'ads_down_hot' => $ads_down_hot,
             'ads_left_content' => $ads_left_content,
             'ads_right_content' => $ads_right_content,
+            'match_hot' => $match_hot,
+            'match_feature' => $match_feature,
+            'list_match' => $list_match,
+            'leagues' => $leagues,
+            'clubs' => $clubs,
         ]);
     }
 
-    public function actionLive()
+    public function actionLive($code)
     {
-        return $this->render('live');
+        $ads_down_nav = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>2]);
+        $ads_double = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>3]);
+        $ads_down_double = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>4]);
+        $ads_down_hot = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>7]);
+        $ads_left_content = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>5]);
+        $ads_right_content = Ads::findAll(['status'=>1,'deleted'=>0,'ads_location_id'=>6]);
+
+        $list_match = Match::find()->where(['status'=>1, 'deleted'=>0])->limit(100)->all();
+
+        $clubs = ArrayHelper::map(Club::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $leagues = ArrayHelper::map(League::findAll(['status'=>1, 'deleted'=>0]),'id','name');
+        $match_id = Utility::decodeMatch($code);
+        $match = Match::findOne(['status'=>1, 'deleted'=>0,'id'=>$match_id]);
+
+        return $this->render('live',[
+            'ads_down_nav' => $ads_down_nav,
+            'ads_double' => $ads_double,
+            'ads_down_double' => $ads_down_double,
+            'ads_down_hot' => $ads_down_hot,
+            'ads_left_content' => $ads_left_content,
+            'ads_right_content' => $ads_right_content,
+            'list_match' => $list_match,
+            'leagues' => $leagues,
+            'clubs' => $clubs,
+            'match' => $match,
+        ]);
     }
 
     public function actionLoadMatch()

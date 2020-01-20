@@ -44,7 +44,8 @@ function closeBanner(value) {
     $(".ads").css('display','none');
 }
 
-function loadVideo(myFile) {
+function loadVideo(element) {
+    var myFile = $(element).data('url');
     jwplayer("myElement1").load({
         image: "https://content.jwplatform.com/thumbs/xJ7Wcodt-720.jpg",
         file : myFile,
