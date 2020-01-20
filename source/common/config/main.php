@@ -11,9 +11,9 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=football_live',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'mysql:host=45.77.41.27;dbname=admin_tructiep',
+            'username' => 'admin_tructiep',
+            'password' => 'admintructiep',
             'charset' => 'utf8',
         ],
         'mailer' => [

@@ -14,7 +14,7 @@ return [
     'modules' => [
         'gii' => [
             'class' => 'yii\gii\Module',
-            'allowedIPs' => ['127.0.0.1', '103.216.120.148'],
+            'allowedIPs' => ['127.0.0.1', '45.77.41.27'],
             'generators' => [
                 'crud' => [
                     'class' => 'backend\templates\gii\crud\Generator',
@@ -26,7 +26,7 @@ return [
         ],
         'debug' => [
             'class' => 'yii\debug\Module',
-            'allowedIPs' => ['127.0.0.1', '103.216.120.148'],
+            'allowedIPs' => ['127.0.0.1', '45.77.41.27'],
         ],
     ],
     'components' => [

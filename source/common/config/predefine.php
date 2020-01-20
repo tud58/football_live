@@ -7,11 +7,11 @@
  */
 
 if (in_array($_SERVER['HTTP_HOST'],['cms.football.abc','football.abc'])) {
-    defined('PATH_STORAGE') or define('PATH_STORAGE', "F:/MyWork/football_live_storage/");
+    defined('PATH_STORAGE') or define('PATH_STORAGE', "D:/Developers19092018/football_live_storage/");
     defined('URL_STORAGE') or define('URL_STORAGE', "http://static.football.abc/");
 } else {
-    defined('PATH_STORAGE') or define('PATH_STORAGE', "/u01/storage/cdn_portal/");
-    defined('URL_STORAGE') or define('URL_STORAGE', "http://103.216.120.148:8081/cdn_portal/");
+    defined('PATH_STORAGE') or define('PATH_STORAGE', "/storage/");
+    defined('URL_STORAGE') or define('URL_STORAGE', "http://static.tructiep.x19tv.club/");
 }
 
 defined('TYPE_TIME') or define('TYPE_TIME', 1);
