@@ -65,9 +65,11 @@ $this->title = 'FootBall Live';
                             <?php for ($i=0; $i<count($list_match);$i++) { ?>
                                 <?php if ($i%5 == 0) { ?>
                                     <?php if (!empty($ads_down_hot[(int)$i/5])) { ?>
+                                    <div style="margin-top: 30px;">
                                         <a href="<?=$ads_down_hot[(int)$i/5]->url?>" class="ads-content" style="margin-top: 30px">
                                             <img src="<?=Utility::getUrlAds($ads_down_hot[(int)$i/5]->id)?>" style="width: 100%; margin-top: 10px;">
                                         </a>
+                                    </div>
                                     <?php } ?>
                                     <div class="matches">
                                         <div class="matches__bg"></div>
