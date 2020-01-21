@@ -99,9 +99,9 @@ $this->title = 'FootBall Live';
                                             </div>
                                         </div>
                                         <div class="matches__column matches__column--center">
-                                            <div class="matches__play-now">
-                                                <span>Cược ngay</span>
-                                            </div>
+                                            <a href="/truc-tiep/<?=Utility::encodeMatch($list_match[$i]->id)?>.io" class="matches__play-now">
+                                                <span>Xem ngay</span>
+                                            </a>
                                             <div id="hmTimeList" class="matches__date-time">
                                                 <div class="" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
                                                     <div class="" style="height: 25px;">
@@ -174,9 +174,9 @@ $this->title = 'FootBall Live';
                                             </div>
                                         </div>
                                         <div class="matches__column matches__column--center">
-                                            <div class="matches__play-now">
-                                                <span>Cược ngay</span>
-                                            </div>
+                                            <a href="/truc-tiep/<?=Utility::encodeMatch($list_match[$i]->id)?>.io" class="matches__play-now">
+                                                <span>Xem ngay</span>
+                                            </a>
                                             <div id="hmTimeList" class="matches__date-time">
                                                 <div class="" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
                                                     <div class="" style="height: 25px;">
