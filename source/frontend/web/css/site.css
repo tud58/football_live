@@ -160,7 +160,7 @@ a.desc:after {
     height: 100%;
     margin-left: 8%;
     margin-top: 10px;
-    background: url("https://debet.com/images/hot-matches_bg.png") no-repeat 50%;
+    background: url("/img/match.png") no-repeat 50%;
     pointer-events: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -279,7 +279,7 @@ a.desc:after {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url("https://debet.com/images/hot-matches_btn.png") no-repeat bottom;
+    background: url("/img/live_match.png") no-repeat bottom;
     -webkit-animation: btnHotMatchesAnimation 3s linear infinite;
     animation: btnHotMatchesAnimation 3s linear infinite;
     background-size: contain;
@@ -584,6 +584,10 @@ a.box-slide-hot {
 
     .swiper-slide {
         width: 64% !important;
+    }
+
+    .matches__bg {
+        background: url("/img/match_mobile.png") no-repeat 50% !important;
     }
 }
 

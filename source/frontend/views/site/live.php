@@ -239,19 +239,3 @@ $this->title = 'FootBall Live';
 
     </div>
 </div>
-
-<script>
-    // var url = $("#url1").data("url");
-    jwplayer("myElement1").setup({
-        image: "https://content.jwplatform.com/thumbs/xJ7Wcodt-720.jpg",
-        aspectratio: "16:9",
-        width: '100%',
-        aspectratio: '16:9',
-        autostart: true,
-        file : 'https://75c5cf3f.vws.vegacdn.vn/cliptv_live/vtv3hd.stream_level4/playlist.m3u8',
-        // file : url,
-        abouttext: 'X19TV',
-        aboutlink: 'http://tructiep.x19tv.club',
-        captions: {color: '#ffb800',fontSize: 30,backgroundOpacity: 0},
-    });
-</script>
