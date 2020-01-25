@@ -76,7 +76,7 @@ $this->title = 'FootBall Live';
                                         <div class="matches__column matches__column--left">
                                             <div class="matches__logo">
                                                 <div id="hmImgListLeft" class="">
-                                                    <div class="" style="transform: translate3d(0px, 5px, 0px); transition-duration: 0ms;">
+                                                    <div class="" style="transform: translate3d(6px, 5px, 0px); transition-duration: 0ms;">
                                                         <div class="" style="height: 70px;">
                                                             <img src="<?=Utility::getUrlClub($list_match[$i]->club1_id)?>" alt="">
                                                         </div>
@@ -122,7 +122,7 @@ $this->title = 'FootBall Live';
                                         <div class="matches__column matches__column--right">
                                             <div class="matches__logo">
                                                 <div id="hmImgListRight" class="">
-                                                    <div class="" style="transform: translate3d(0px, 5px, 0px); transition-duration: 0ms;">
+                                                    <div class="" style="transform: translate3d(6px, 5px, 0px); transition-duration: 0ms;">
                                                         <div class="" style="height: 70px;">
                                                             <img src="<?=Utility::getUrlClub($list_match[$i]->club2_id)?>" alt="">
                                                         </div>
@@ -151,7 +151,7 @@ $this->title = 'FootBall Live';
                                         <div class="matches__column matches__column--left">
                                             <div class="matches__logo">
                                                 <div id="hmImgListLeft" class="">
-                                                    <div class="" style="transform: translate3d(0px, 5px, 0px); transition-duration: 0ms;">
+                                                    <div class="" style="transform: translate3d(6px, 5px, 0px); transition-duration: 0ms;">
                                                         <div class="" style="height: 70px;">
                                                             <img src="<?=Utility::getUrlClub($list_match[$i]->club1_id)?>" alt="">
                                                         </div>
@@ -197,7 +197,7 @@ $this->title = 'FootBall Live';
                                         <div class="matches__column matches__column--right">
                                             <div class="matches__logo">
                                                 <div id="hmImgListRight" class="">
-                                                    <div class="" style="transform: translate3d(0px, 5px, 0px); transition-duration: 0ms;">
+                                                    <div class="" style="transform: translate3d(6px, 5px, 0px); transition-duration: 0ms;">
                                                         <div class="" style="height: 70px;">
                                                             <img src="<?=Utility::getUrlClub($list_match[$i]->club2_id)?>" alt="">
                                                         </div>

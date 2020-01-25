@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var location = window.location.href;
     var arr = location.split("/");
-    console.log(arr[3]);
+    console.log(arr[3] + 'xxx');
 
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',

@@ -28,7 +28,7 @@ AppAsset::register($this);
 
     <script src="https://use.fontawesome.com/20603b964f.js"></script>
     <script type="text/javascript" src="https://cdn.jwplayer.com/libraries/gaqdEdUp.js"></script>
-    <script type="text/javascript">jwplayer.key = 'ypdL3Acgwp4Uh2/LDE9dYh3W/EPwDMuA2yid4ytssfI=';</script>
+    <script type="text/javascript">jwplayer.key = 'OlSbMjkz1naU9Qohycmt1wLsHvudNcvh/7rW6Q==';</script>
 
     <script src="https://unpkg.com/swiper/js/swiper.js"></script>
     <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>

@@ -197,7 +197,7 @@ a.desc:after {
 }
 
 .matches__logo img {
-    width: 100%;
+    width: 83%;
     height: 100%;
     -o-object-fit: cover;
     object-fit: cover;
